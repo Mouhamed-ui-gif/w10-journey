@@ -2,272 +2,89 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#120a05">
-<title>W10 Journey ✈ رحلة عبر ستة عالم | الخروب · قسنطينة</title>
-<meta name="description" content="مطعم W10 Journey بالخروب قسنطينة — مطعم واحد، ست دول: الهند، إيطاليا، إسبانيا، اليابان، المكسيك وأمريكا. استكشف المنيو واحجز مقعدك على متن الرحلة.">
-<meta property="og:title" content="W10 Journey — رحلة عبر ستة عوالم">
-<meta property="og:description" content="سوشي ياباني 🍣 برياني هندي 🍛 بيتزا إيطالية 🍕 تاكوس مكسيكي 🌮 برغر أمريكي 🍔 — في قلب الخروب، قسنطينة.">
-<meta property="og:image" content="https://dyj6gt4964deb.cloudfront.net/images/bg-hero.jpeg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0806'/><text x='32' y='42' font-size='26' font-family='Arial' font-weight='bold' fill='%23f7906c' text-anchor='middle'>W10</text></svg>">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>W10 Journey | مطعم عالمي - الخروب</title>
+<meta name="theme-color" content="#0d0806">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Marcellus&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 
-<div id="grain" aria-hidden="true"></div>
-<div id="wash" aria-hidden="true"></div>
-
-<div id="cursorDot" aria-hidden="true"></div>
-<div id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
-
-<div id="preloader" aria-hidden="true">
-  <div class="shutter s1"></div>
-  <div class="shutter s2"></div>
-  <div class="shutter s3"></div>
-  <div class="pass">
-    <header><b>W10 AIR LINES</b><span>BOARDING PASS · 1ST CLASS</span></header>
-    <div class="pass-route">
-      <div><small>FROM</small><b>CNX</b><i>الخروب</i></div>
-      <div class="pass-plane">✈</div>
-      <div><small>TO</small><b>W10LD</b><i>العالم</i></div>
-    </div>
-    <div class="pass-code" aria-hidden="true"></div>
-    <footer><span id="loadPct">0%</span><span>تُجهَّز رحلتك…</span></footer>
-  </div>
-</div>
-
-<div id="rail" aria-hidden="true"><i id="railFill"></i><span id="railPlane">✈</span></div>
-
-<nav id="nav" aria-label="التنقل الرئيسي">
-  <a class="brand" href="#hero">W10 <em>JOURNEY</em></a>
-  <button id="burger" aria-label="القائمة" aria-expanded="false"><span></span><span></span><span></span></button>
-  <ul id="navLinks">
-    <li><a href="#hero">الإقلاع</a></li>
-    <li><a href="#board">لوحة الرحلات</a></li>
-    <li><a href="#journey">الرحلة</a></li>
-    <li><a href="#menu">المنيو</a></li>
-    <li><a href="#gallery">المعرض</a></li>
-    <li><a href="#book">الحجز</a></li>
-    <li><a href="#find">الموقع</a></li>
-  </ul>
-</nav>
-
-<header id="hero">
-  <div id="heroSlides" aria-hidden="true"></div>
-  <div id="trailLayer" aria-hidden="true"></div>
-  <div class="hero-vig" aria-hidden="true"></div>
-  <canvas id="embers" aria-hidden="true"></canvas>
-  <p class="side-tag" aria-hidden="true">EL KHROB — CONSTANTINE — 36.26°N 6.69°E</p>
-
-  <div class="hero-content">
-    <div class="hero-chips reveal">
-      <span class="chip-live"><i></i> مفتوح الآن · <b id="clockNow">--:--</b></span>
-      <span class="chip-alt">الخروب · قسنطينة · الجزائر</span>
-    </div>
-    <h1 id="heroTitle" aria-label="W10 Journey — مطعم واحد ست دول">
-      <span class="latin" aria-hidden="true">W10 JOURNEY</span>
-      <span class="ar" aria-hidden="true">مطعمٌ واحد… <b>ستُّ دولٍ</b> في رحلةٍ واحدة</span>
-    </h1>
-    <p class="hero-sub reveal d2">🍣 سوشي ياباني · 🍛 برياني هندي · 🍕 بيتزا إيطالية · 🥘 تاباس إسباني · 🌮 تاكوس مكسيكي · 🍔 برغر أمريكي</p>
-    <div class="hero-cta reveal d3">
-      <a class="btn btn-solid magnet" href="#journey">ابدأ الرحلة <b>↓</b></a>
-      <a class="btn btn-ghost magnet" href="#book">احجز مقعدك</a>
-    </div>
-  </div>
-  <div class="scroll-cue" aria-hidden="true"><span>مرّر للتحليق</span><i></i></div>
+<header>
+  <a class="logo" href="#">W10<em>J</em></a>
+  <nav id="nav">
+    <a href="#sec-menu">القائمة</a>
+    <a href="#sec-gallery">المعرض</a>
+    <a href="#sec-book">الحجز</a>
+    <a href="#sec-location">الموقع</a>
+  </nav>
+  <button id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
 </header>
 
-<div id="ticker" aria-hidden="true"><div class="tick-track" id="tickTrack"></div></div>
-
-<section id="concept" class="wrap">
-  <div class="kicker" data-scramble>ABOUT THE JOURNEY</div>
-  <h2 class="giant split">ليس مجرّد مطعم…<br><mark>جوازَ سفرٍ</mark> لذائقتك</h2>
-  <div class="concept-grid">
-    <p class="lead">كل قسم من طاولاتنا ينقلك إلى بلدٍ آخر: ديكور، موسيقى، وقائمة خاصّة بذلك البلد. اطلب من قائمة القسم الذي تجلس فيه… أو شارك رفاقك سبعة أطباق من سبع دول على طاولة واحدة.</p>
-    <blockquote>"يرجى الطلب من قائمة البلد الخاصة بالقسم الذي تجلسون فيه، لتكون تجربتكم متناسقة مع أجواء ذلك البلد وأطباقه المميّزة." <cite>— إدارة W10 Journey</cite></blockquote>
-  </div>
-  <div class="stats" id="stats">
-    <div class="stat"><b data-count="6" data-suffix="">0</b><span>مطابخ عالمية</span></div>
-    <div class="stat"><b data-count="233" id="statDishes">0</b><span>طبقاً أصلياً</span></div>
-    <div class="stat"><b data-count="54">0</b><span>تحفة يابانية</span></div>
-    <div class="stat"><b data-count="38">0</b><span>مشروباً ومنتجاً</span></div>
-  </div>
-</section>
-
-<section id="board">
-  <div class="wrap">
-    <div class="kicker" data-scramble>DEPARTURES</div>
-    <h2 class="giant split">لوحة <mark>الرحلات</mark></h2>
-    <p class="sub">كل قسم محطة… ومحطّة لا تتأخر أبداً</p>
-  </div>
-  <div class="board-frame wrap" >
-    <div class="b-row b-head" aria-hidden="true">
-      <span>RAIL</span><span>DESTINATION</span><span>GATE</span><span>TIME</span><span>STATUS</span>
-    </div>
-    <div id="boardRows"></div>
-  </div>
-</section>
-
-<section id="journey">
-  <div class="j-head wrap">
-    <div class="kicker" data-scramble>PICK YOUR WORLD</div>
-    <h2 class="giant split">اصنع <mark>رحلتك</mark></h2>
-    <p class="sub">استمر في التمرير — البطاقات تنقلك عبر القارات</p>
-  </div>
-  <div class="j-runway">
-    <div class="j-pin">
-      <div class="j-track" id="jTrack" dir="ltr"></div>
+<section id="sec-hero" class="hero">
+  <div class="hero-inner">
+    <p class="tag">مطعم عالمي · الخروب · قسنطينة</p>
+    <h1>W10 <em>Journey</em></h1>
+    <p class="sub">٧ دول في مطبخ واحد — هند · إيطاليا · إسبانيا · يابان · مكسيك · أمريكا · مشروبات</p>
+    <div class="hero-btns">
+      <a href="#sec-menu" class="btn">اكتشف القائمة</a>
+      <a href="#sec-book" class="btn outline">احجز طاولة</a>
     </div>
   </div>
 </section>
 
-<main id="chapters"></main>
-
-<section id="menu">
-  <div class="wrap">
-    <div class="kicker" data-scramble>TASTE EVERYTHING</div>
-    <h2 class="giant split">المنيو <mark>الكامل</mark></h2>
-    <p class="sub" id="menuCountLine">أطباق حقيقية من قائمتنا الرقمية — مرّر فوق أي طبق</p>
-    <div class="menu-tools">
-      <div id="menuTabs" role="tablist"></div>
-      <input id="menuSearch" type="search" placeholder="🔍 ابحث عن طبق…" aria-label="البحث في المنيو">
-    </div>
+<section id="sec-menu" class="section">
+  <h2>القائمة</h2>
+  <div id="cats" class="cats"></div>
+  <div class="search-wrap">
+    <input type="search" id="search" placeholder="ابحث عن طبق..." autocomplete="off">
   </div>
-  <div class="wrap" id="menuListWrap">
-    <div id="menuList"></div>
-    <p id="menuEmpty" hidden>لا توجد نتائج مطابقة… جرّب كلمة أخرى 🤔</p>
-  </div>
+  <div id="items" class="items"></div>
 </section>
 
-<section id="gallery">
-  <div class="wrap head">
-    <div class="kicker" data-scramble>FRESH FROM THE PASS</div>
-    <h2 class="giant split">من <mark>مطبخنا</mark></h2>
-    <p class="sub">اسحب المعرض بيديك 👈</p>
-  </div>
-  <div class="gal-strip" id="galStrip"><div class="gal-track" id="galTrack"></div></div>
+<section id="sec-gallery" class="section">
+  <h2>المعرض</h2>
+  <div id="gal" class="gal"></div>
 </section>
 
-<section id="book">
-  <div class="wrap">
-    <div class="kicker" data-scramble>RESERVE YOUR SEAT</div>
-    <h2 class="giant split">احجز <mark>مقعدك</mark> على متن الرحلة</h2>
-    <div class="book-grid">
-      <aside class="book-side">
-        <p class="lead">ثلاث خطوات فقط وتصلك «بطاقة الصعود». اختر حتى القسم الذي تفضّله: ياباني هادئ، مكسيكي ناري، أو إيطالي رومانسي؟</p>
-        <ul class="perks">
-          <li>🪑 اختيار القسم والديكور</li>
-          <li>🎂 تجهيز أعياد الميلاد والمناسبات</li>
-          <li>👨‍👩‍👧‍👦 مجموعات وعائلات كبيرة</li>
-          <li>⚡ تأكيد فوري بدون انتظار</li>
-        </ul>
-        <div class="mini-map" aria-hidden="true"></div>
-      </aside>
-      <form id="bookForm" novalidate>
-        <div class="steps-hud"><i></i><i></i><i></i><span id="hudFill"></span></div>
-        <fieldset class="step on" data-step="1">
-          <legend>١ · متى تحلق؟</legend>
-          <label>التاريخ<input name="date" type="date" required></label>
-          <label>الوقت<select name="time" required></select></label>
-          <div class="wiz-nav"><span></span><button type="button" class="btn btn-solid next">التالي ←</button></div>
-        </fieldset>
-        <fieldset class="step" data-step="2">
-          <legend>٢ · كم من أنتم؟ وأين تجلسون؟</legend>
-          <label>عدد الضيوف
-            <span class="stepper">
-              <button type="button" class="stp minus" aria-label="أقل">−</button>
-              <output name="guestsOut">2</output>
-              <input type="hidden" name="guests" value="2">
-              <button type="button" class="stp plus" aria-label="أكثر">+</button>
-            </span>
-          </label>
-          <p class="pick-label">اختر القسم:</p>
-          <div class="picker" id="sectionPicker"></div>
-          <div class="wiz-nav"><button type="button" class="btn btn-ghost prev">→ السابق</button><button type="button" class="btn btn-solid next">التالي ←</button></div>
-        </fieldset>
-        <fieldset class="step" data-step="3">
-          <legend>٣ · بطاقة الهوية</legend>
-          <label>الاسم الكامل<input name="name" type="text" required placeholder="محمد بن عمر…" autocomplete="name"></label>
-          <label>رقم الهاتف<input name="phone" type="tel" required placeholder="05XX XX XX XX" inputmode="tel" autocomplete="tel"></label>
-          <label>مناسبة خاصة؟ <span class="opt">(اختياري)</span><input name="note" type="text" placeholder="عيد ميلاد، خطوبة، اجتماع عمل…"></label>
-          <p class="summary" id="bookSummary"></p>
-          <div class="wiz-nav"><button type="button" class="btn btn-ghost prev">→ السابق</button><button type="submit" class="btn btn-solid">تأكيد الحجز ✈</button></div>
-        </fieldset>
-        <p class="form-msg" id="formMsg" role="status"></p>
-      </form>
+<section id="sec-book" class="section">
+  <h2>احجز طاولة</h2>
+  <form id="form" class="form">
+    <div class="row">
+      <input name="name" placeholder="الاسم الكامل" required>
+      <input name="phone" type="tel" placeholder="رقم الهاتف" required>
     </div>
-  </div>
+    <div class="row">
+      <input name="date" type="date" required>
+      <select name="time" required><option value="">اختر الوقت</option></select>
+    </div>
+    <div class="row">
+      <select name="guests">
+        <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
+        <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
+      </select>
+      <input name="section" placeholder="القسم (اختياري)">
+    </div>
+    <textarea name="note" placeholder="ملاحظات خاصة..."></textarea>
+    <button type="submit" class="btn full">تأكيد الحجز</button>
+  </form>
+  <div id="result" class="result hidden"></div>
 </section>
 
-<section id="find" class="wrap">
-  <div class="kicker" data-scramble>FIND US</div>
-  <h2 class="giant split">أين <mark>تجدنا</mark>؟</h2>
-  <div class="find-grid">
-    <div class="f-card tilt">
-      <h3>📍 العنوان</h3>
-      <p>مدينة الخروب<br>ولاية قسنطينة · الجزائر</p>
-      <a class="btn btn-ghost" id="mapsLink" href="#" target="_blank" rel="noopener">افتح في خرائط Google ↗</a>
-    </div>
-    <div class="f-card tilt">
-      <h3>🕒 الدوام</h3>
-      <p id="hoursText">يومياً · 11:00 ← 23:00</p>
-      <span class="badge-open" id="openBadge">…</span>
-    </div>
-    <div class="f-card tilt">
-      <h3>📱 تواصل معنا</h3>
-      <div class="socials" id="socials"></div>
-      <p id="phoneLine" class="phone-line" hidden></p>
-    </div>
-  </div>
+<section id="sec-location" class="section loc">
+  <h2>الموقع</h2>
+  <p class="loc-text">📍 الخروب، قسنطينة، الجزائر<br>📞 يومياً 11:00 ← 23:00</p>
+  <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full" rel="noopener">افتح في خرائط جوجل</a>
 </section>
 
 <footer>
-  <div class="foot-marq" aria-hidden="true"><div class="fm-track"><span>W10 JOURNEY ✈ W10 JOURNEY ✈ W10 JOURNEY ✈ W10 JOURNEY ✈ </span><span>W10 JOURNEY ✈ W10 JOURNEY ✈ W10 JOURNEY ✈ W10 JOURNEY ✈ </span></div></div>
-  <p class="foot-line">صُنع بحبٍّ في قسنطينة · رحلة الطعام لا تنتهي هنا 🌍</p>
-  <small id="year"></small>
+  <p>W10 Journey · الخروب · قسنطينة</p>
 </footer>
 
-<button id="toTop" class="magnet" aria-label="العودة للأعلى">✈</button>
-<a id="floatBook" class="btn btn-solid magnet" href="#book">🎫 احجز طاولة</a>
-
-<div id="peek" aria-hidden="true"><img alt=""></div>
-
-<div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="تفاصيل الطبق">
-  <button class="lb-x" aria-label="إغلاق">×</button>
-  <button class="lb-prev" aria-label="السابق">›</button>
-  <figure class="lb-card">
-    <div class="lb-imgwrap"><img id="lbImg" src="" alt=""></div>
-    <figcaption>
-      <span id="lbCat" class="lb-cat"></span>
-      <h3 id="lbName"></h3>
-      <p id="lbDesc"></p>
-      <div class="lb-foot"><b id="lbPrice"></b><span class="lb-hint">اضغط ← → للتنقل</span></div>
-    </figcaption>
-  </figure>
-  <button class="lb-next" aria-label="التالي">‹</button>
-</div>
-
-<div id="ticketModal" hidden role="dialog" aria-modal="true" aria-label="بطاقة الحجز">
-  <canvas id="confetti"></canvas>
-  <div class="ticket">
-    <header><span>W10 AIR LINES · BOARDING PASS</span><b id="tkId">W10-XXXXX</b></header>
-    <div class="t-body">
-      <div class="t-big"><div><small>الراكب</small><b id="tkName"></b></div><div class="t-sec"><small>القسم</small><b id="tkSection"></b></div></div>
-      <div class="t-row"><div><small>التاريخ</small><b id="tkDate"></b></div><div><small>الإقلاع</small><b id="tkTime"></b></div><div><small>الضيوف</small><b id="tkGuests"></b></div></div>
-      <div class="t-note" id="tkNote" hidden></div>
-      <div class="barcode" aria-hidden="true"><i></i></div>
-      <p class="t-gate">GATE <b>W10</b> · SEAT <b id="tkSeat">A1</b> · CLASS <b>DELUXE</b></p>
-    </div>
-    <footer>
-      <a id="tkWhats" class="btn tk-wa" target="_blank" rel="noopener">واتساب</a>
-      <button id="tkIcs" class="btn btn-ghost dark">التقويم 📅</button>
-      <button id="tkClose" class="btn btn-solid">تم ✓</button>
-    </footer>
-  </div>
-</div>
+<div id="toast" class="toast hidden"></div>
+<div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">&times;</button><img id="lbImg" alt=""></div>
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
