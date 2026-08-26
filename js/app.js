@@ -7,7 +7,23 @@ const url=f=>f?CDN+f:"";
 const isMobile=matchMedia("(max-width:680px)").matches;
 const reduceMotion=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-/* ===== CANVAS BOKEH ===== */
+/* ===== SPLASH SCREEN ===== */
+const splash=$("#splash"),hdr=$("#hdr"),main=$("#main"),ft=$("#ft");
+function enterSite(){
+  if(!splash)return showMain();
+  splash.classList.add("go");
+  setTimeout(()=>{splash.remove();showMain()},600);
+}
+function showMain(){
+  hdr&&hdr.classList.remove("hidden");
+  main&&main.classList.remove("hidden");
+  ft&&ft.classList.remove("hidden");
+}
+const splashBtn=$("#splashBtn");
+if(splashBtn)splashBtn.onclick=enterSite;
+setTimeout(enterSite,4000);
+
+/* ===== CANVAS BOKEH (VIDEO-LIKE) ===== */
 (function(){
   const cv=$("#bg");if(!cv||reduceMotion)return;
   const ctx=cv.getContext("2d");if(!ctx)return;
@@ -15,39 +31,82 @@ const reduceMotion=matchMedia("(prefers-reduced-motion:reduce)").matches;
   const dpr=Math.min(devicePixelRatio||1,isMobile?1.5:2);
   const resize=()=>{W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr};
   resize();addEventListener("resize",resize);
-  const bokeh=Array.from({length:isMobile?14:28},()=>({
-    x:Math.random()*W,y:Math.random()*H,r:(Math.random()*55+15)*dpr,
-    hue:18+Math.random()*38,sat:50+Math.random()*30,lit:38+Math.random()*28,
-    alpha:.02+Math.random()*.06,vx:(Math.random()-.5)*.28*dpr,vy:(Math.random()-.5)*.18*dpr,
-    phase:Math.random()*6.28,speed:.0012+Math.random()*.002
+
+  // Bokeh circles
+  const bokeh=Array.from({length:isMobile?18:35},()=>({
+    x:Math.random()*W,y:Math.random()*H,r:(Math.random()*60+12)*dpr,
+    hue:15+Math.random()*40,sat:45+Math.random()*35,lit:35+Math.random()*30,
+    alpha:.02+Math.random()*.055,
+    vx:(Math.random()-.5)*.25*dpr,vy:(Math.random()-.5)*.15*dpr,
+    phase:Math.random()*6.28,speed:.0008+Math.random()*.0018
   }));
-  const sparks=Array.from({length:isMobile?12:30},()=>({
-    x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.8+.5)*dpr,
-    vy:-(Math.random()*.45+.08)*dpr,vx:(Math.random()-.5)*.18*dpr,
-    a:Math.random()*.4+.1,hot:Math.random()>.4
+
+  // Rising sparks
+  const sparks=Array.from({length:isMobile?16:40},()=>({
+    x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.6+.4)*dpr,
+    vy:-(Math.random()*.4+.06)*dpr,vx:(Math.random()-.5)*.15*dpr,
+    a:Math.random()*.35+.08,hot:Math.random()>.35,
+    phase:Math.random()*6.28,speed:.02+Math.random()*.03
   }));
+
+  // Film grain overlay
+  const grainSize=isMobile?2:3;
+  let grainCanvas,grainCtx;
+  function initGrain(){
+    grainCanvas=document.createElement("canvas");
+    grainCanvas.width=Math.ceil(W/grainSize);
+    grainCanvas.height=Math.ceil(H/grainSize);
+    grainCtx=grainCanvas.getContext("2d");
+  }
+  initGrain();
+
+  let frame=0;
   (function loop(){
     if(document.hidden)return requestAnimationFrame(loop);
-    const bg=ctx.createRadialGradient(W*.55,H*.38,0,W*.55,H*.38,W*.65);
-    bg.addColorStop(0,"#1a0e08");bg.addColorStop(.55,"#0f0906");bg.addColorStop(1,"#080503");
+    frame++;
+
+    // Background gradient
+    const bg=ctx.createRadialGradient(W*.55,H*.35,0,W*.55,H*.35,W*.6);
+    bg.addColorStop(0,"#1a0e08");bg.addColorStop(.5,"#0f0906");bg.addColorStop(1,"#080503");
     ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    // Bokeh
     bokeh.forEach(p=>{
       p.x+=p.vx;p.y+=p.vy;p.phase+=p.speed;
       if(p.x<-p.r)p.x=W+p.r;if(p.x>W+p.r)p.x=-p.r;
       if(p.y<-p.r)p.y=H+p.r;if(p.y>H+p.r)p.y=-p.r;
-      const a=p.alpha*(.55+.45*Math.sin(p.phase));
+      const a=p.alpha*(.5+.5*Math.sin(p.phase));
       const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
       g.addColorStop(0,`hsla(${p.hue},${p.sat}%,${p.lit}%,${a})`);
       g.addColorStop(1,`hsla(${p.hue},${p.sat}%,${p.lit}%,0)`);
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.29);ctx.fill();
     });
+
+    // Sparks
     sparks.forEach(s=>{
-      s.x+=s.vx;s.y+=s.vy;
+      s.x+=s.vx+Math.sin(s.phase)*.3*dpr;
+      s.y+=s.vy;
+      s.phase+=s.speed;
       if(s.y<-10){s.y=H+10;s.x=Math.random()*W}
       ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.29);
-      ctx.fillStyle=s.hot?`rgba(255,${170+Math.random()*50|0},${50+Math.random()*40|0},${s.a})`:`rgba(247,144,108,${s.a*.7})`;
+      ctx.fillStyle=s.hot?`rgba(255,${160+Math.random()*60|0},${40+Math.random()*45|0},${s.a})`:`rgba(247,144,108,${s.a*.6})`;
       ctx.fill();
     });
+
+    // Film grain (every 3 frames for perf)
+    if(frame%3===0&&grainCtx){
+      const imgData=grainCtx.createImageData(grainCanvas.width,grainCanvas.height);
+      const d=imgData.data;
+      for(let i=0;i<d.length;i+=4){
+        const v=Math.random()*25;
+        d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=12;
+      }
+      grainCtx.putImageData(imgData,0,0);
+      ctx.globalAlpha=.08;
+      ctx.drawImage(grainCanvas,0,0,W,H);
+      ctx.globalAlpha=1;
+    }
+
     requestAnimationFrame(loop);
   })();
 })();
@@ -95,13 +154,14 @@ $$(".country").forEach(card=>{
 });
 
 /* ===== OPEN COUNTRY MENU ===== */
-const cName=$("#cName"),cFlag=$("#cFlag"),cCount=$("#cCount");
+const cName=$("#cName"),cFlag=$("#cFlag"),cCount=$("#cCount"),cHero=$("#cHero");
 const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems");
 
 function openCountry(idx){
   const sec=countryData[idx];
   cName.textContent=sec.name;
   cFlag.textContent=sec.flag;
+  cHero.style.backgroundImage=`url('${sec.img}')`;
   let total=0;sec.cats.forEach(c=>total+=c.items.length);
   cCount.textContent=total+" طبق";
 
@@ -148,7 +208,7 @@ function renderCountryItems(sec,cat,query){
 /* ===== DRINKS ===== */
 if(drinksSection){
   let total=0;drinksSection.cats.forEach(c=>total+=c.items.length);
-  $("#sec-drinks .section-sub").textContent=total+" مشروب · مشروبات ساخنة وباردة ومنعشة";
+  const dCountEl=$("#dCount");if(dCountEl)dCountEl.textContent=total+" مشروب";
   const dCats=$("#dCats"),dSearch=$("#dSearch"),dItems=$("#dItems");
 
   let catsHTML=`<button class="cat on" data-c="all">الكل (${total})</button>`;

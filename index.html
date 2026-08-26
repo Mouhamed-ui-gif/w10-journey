@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <title>W10 Journey | مطعم عالمي - الخروب</title>
 <meta name="theme-color" content="#0d0806">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,25 @@
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
 
-<header>
+<!-- SPLASH SCREEN -->
+<div id="splash" class="splash">
+  <div class="splash-inner">
+    <div class="splash-logo">
+      <span class="splash-ring"></span>
+      <span class="splash-ring r2"></span>
+      <span class="splash-ring r3"></span>
+      <div class="splash-title">W10</div>
+      <div class="splash-sub2">Journey</div>
+    </div>
+    <p class="splash-text">رحلة ذوق حول العالم</p>
+    <p class="splash-flags">🇮🇳 🇮🇹 🇪🇸 🇯🇵 🇲🇽 🇺🇸</p>
+    <button id="splashBtn" class="splash-btn">ابدأ الرحلة</button>
+    <p class="splash-loc">الخروب · قسنطينة · الجزائر</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr" class="hdr hidden">
   <a class="logo" href="#" onclick="window._home();return false">W10<em>J</em></a>
   <nav id="nav">
     <a href="#" onclick="window._home();return false">الرئيسية</a>
@@ -23,27 +41,27 @@
   <button id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
 </header>
 
-<main>
+<main id="main" class="hidden">
 <!-- HOME: country hub -->
 <section id="sec-home" class="page active">
-  <div class="hero">
-    <p class="tag">مطعم عالمي · الخروب · قسنطينة</p>
-    <h1>W10 <em>Journey</em></h1>
-    <p class="sub">اختر دولتك المفضلة واكتشف نكهاتها</p>
+  <div class="hero2">
+    <h1>اختر <em>دولتك</em></h1>
+    <p class="sub">اكتشف نكهات العالم في مكان واحد</p>
   </div>
   <div id="countries" class="countries"></div>
 </section>
 
-<!-- COUNTRY MENU (hidden initially) -->
+<!-- COUNTRY MENU -->
 <section id="sec-country" class="page">
   <button class="back-btn" onclick="window._home()">← العودة</button>
   <div class="country-header">
+    <div id="cHero" class="c-hero-img"></div>
     <span id="cFlag" class="c-flag"></span>
     <h2 id="cName"></h2>
     <p id="cCount" class="c-count"></p>
   </div>
   <div id="cCats" class="cats"></div>
-  <input type="search" id="cSearch" class="search" placeholder="ابحث في هذا القسم..." autocomplete="off">
+  <input type="search" id="cSearch" class="search" placeholder="ابحث..." autocomplete="off">
   <div id="cItems" class="items"></div>
 </section>
 
@@ -51,7 +69,7 @@
 <section id="sec-drinks" class="page">
   <div class="section-top">
     <h2>المشروبات</h2>
-    <p class="section-sub">مشروبات ساخنة وباردة ومنعشة</p>
+    <p id="dCount" class="section-sub"></p>
   </div>
   <div id="dCats" class="cats"></div>
   <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب..." autocomplete="off">
@@ -91,9 +109,7 @@
 </section>
 </main>
 
-<footer>
-  <p>W10 Journey · الخروب · قسنطينة</p>
-</footer>
+<footer id="ft" class="hidden"><p>W10 Journey · الخروب · قسنطينة</p></footer>
 
 <div id="toast" class="toast hidden"></div>
 <div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">&times;</button><img id="lbImg" alt=""></div>
