@@ -46,7 +46,7 @@ DATA.sections.forEach(s => {
   const col = SEC_COLORS[s.key] || "#fff";
   s.cats.forEach(c => c.items.forEach(it => ALL_ITEMS.push({
     name: it.n, price: it.p, desc: it.d,
-    img: it.img ? `assets/img/${it.img}` : s.hero,
+    img: it.img ? `https://dyj6gt4964deb.cloudfront.net/images/${it.img}` : s.hero,
     cat: c.name, section: s.ar, key: s.key.trim(), secColor: col
   })));
 });
@@ -64,7 +64,7 @@ function boot() {
   $$(".split").forEach(splitWords);
   initScrambles();
   buildHero();
-  initHeroVideo();
+  initHeroBg();
   buildTicker();
   buildBoard();
   buildJourney();
@@ -76,7 +76,7 @@ function boot() {
   initNav();
   initCursor();
   initTrail();
-  initEmbers();
+  initHeroBg();
   initTilt();
   initMagnets();
   initWizard();
@@ -151,7 +151,7 @@ function initScrambles() {
 }
 
 function heroImages() {
-  return ["assets/img/bg-hero.jpeg", ...DATA.sections.map(s => s.hero)];
+  return DATA.sections.map(s => s.hero);
 }
 
 let heroDone;
@@ -288,8 +288,8 @@ function buildChapters() {
     pool.sort((a, b) => b.p - a.p);
     return pool.slice(0, 6).map(d => `
       <figure class="dish" data-name="${d.n}" data-price="${d.p}"
-        data-img="assets/img/${d.img}" data-cat="${sec.flag} ${sec.ar}">
-        <img src="assets/img/${d.img}" alt="${d.n}" loading="lazy">
+        data-img="https://dyj6gt4964deb.cloudfront.net/images/${d.img}" data-cat="${sec.flag} ${sec.ar}">
+        <img src="https://dyj6gt4964deb.cloudfront.net/images/${d.img}" alt="${d.n}" loading="lazy">
         <figcaption>
           <h4>${d.n}</h4>
           <div class="p"><span>${sec.flag}</span><b>${fmtDA(d.p)}</b></div>
@@ -668,36 +668,69 @@ function initTrail() {
   });
 }
 
-function initEmbers() {
+function initHeroBg() {
   if (reduceMotion) return;
   const cv = $("#embers");
   const ctx = cv.getContext ? cv.getContext("2d") : null;
   if (!ctx) return;
-  let W, H, parts = [];
-  const resize = () => {
-    const r = Math.min(devicePixelRatio || 1, MOBILE ? 1.5 : 2);
-    W = cv.width = cv.offsetWidth * r;
-    H = cv.height = cv.offsetHeight * r;
-    parts = Array.from({ length: Math.min(MOBILE ? 22 : 60, W / 22 | 0) }, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      r: (Math.random() * 2 + 0.6) * r,
-      vy: -(Math.random() * 0.5 + 0.1) * r,
-      vx: (Math.random() - 0.5) * 0.2 * r,
-      a: Math.random() * 0.45 + 0.1,
-      hot: Math.random() > 0.5
-    }));
-  };
+  let W, H;
+  const r = Math.min(devicePixelRatio || 1, MOBILE ? 1.5 : 2);
+  const resize = () => { W = cv.width = cv.offsetWidth * r; H = cv.height = cv.offsetHeight * r; };
   resize();
   addEventListener("resize", resize);
+
+  const bokeh = Array.from({ length: MOBILE ? 18 : 35 }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    r: (Math.random() * 70 + 20) * r,
+    hue: 18 + Math.random() * 38,
+    sat: 55 + Math.random() * 25,
+    lit: 42 + Math.random() * 28,
+    alpha: 0.025 + Math.random() * 0.07,
+    vx: (Math.random() - 0.5) * 0.35 * r,
+    vy: (Math.random() - 0.5) * 0.22 * r,
+    phase: Math.random() * 6.28,
+    speed: 0.0015 + Math.random() * 0.003
+  }));
+  const sparks = Array.from({ length: MOBILE ? 16 : 40 }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    r: (Math.random() * 2.2 + 0.5) * r,
+    vy: -(Math.random() * 0.55 + 0.12) * r,
+    vx: (Math.random() - 0.5) * 0.22 * r,
+    a: Math.random() * 0.5 + 0.12,
+    hot: Math.random() > 0.4
+  }));
+
   (function loop() {
     if (document.hidden) return requestAnimationFrame(loop);
-    ctx.clearRect(0, 0, W, H);
-    parts.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if (p.y < -8) { p.y = H + 8; p.x = Math.random() * W; }
+    const bg = ctx.createRadialGradient(W * 0.55, H * 0.38, 0, W * 0.55, H * 0.38, W * 0.65);
+    bg.addColorStop(0, "#1a0e08");
+    bg.addColorStop(0.55, "#0f0906");
+    bg.addColorStop(1, "#080503");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    bokeh.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.phase += p.speed;
+      if (p.x < -p.r) p.x = W + p.r;
+      if (p.x > W + p.r) p.x = -p.r;
+      if (p.y < -p.r) p.y = H + p.r;
+      if (p.y > H + p.r) p.y = -p.r;
+      const a = p.alpha * (0.55 + 0.45 * Math.sin(p.phase));
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, `hsla(${p.hue},${p.sat}%,${p.lit}%,${a})`);
+      g.addColorStop(1, `hsla(${p.hue},${p.sat}%,${p.lit}%,0)`);
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, 7);
-      ctx.fillStyle = p.hot ? `rgba(255,196,107,${p.a})` : `rgba(247,144,108,${p.a})`;
+      ctx.arc(p.x, p.y, p.r, 0, 6.29);
+      ctx.fill();
+    });
+
+    sparks.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if (s.y < -10) { s.y = H + 10; s.x = Math.random() * W; }
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, 6.29);
+      ctx.fillStyle = s.hot ? `rgba(255,${170 + Math.random() * 50 | 0},${50 + Math.random() * 40 | 0},${s.a})` : `rgba(247,144,108,${s.a * 0.7})`;
       ctx.fill();
     });
     requestAnimationFrame(loop);
@@ -901,25 +934,6 @@ function startLoop() {
 
 if (document.readyState === "loading") addEventListener("DOMContentLoaded", boot);
 else boot();
-
-function initHeroVideo() {
-  const v = $("#heroVideo");
-  if (!v || reduceMotion || v.dataset.bound) return;
-  v.dataset.bound = "1";
-  const conn = navigator.connection || navigator.mozConnection;
-  if (conn && (conn.saveData || /(^|\b)2g\b/i.test(conn.effectiveType || ""))) return;
-  const play = () => { const p = v.play && v.play(); p && p.catch && p.catch(() => {}); };
-  const showSlides = () => $$("#heroSlides .h-slide").forEach(s => { s.style.opacity = ""; s.style.transitionDuration = ""; });
-  const hideSlides = () => $$("#heroSlides .h-slide").forEach(s => { s.style.transitionDuration = "0s"; s.style.opacity = 0; });
-  v.addEventListener("canplay", () => {
-    v.classList.add("on");
-    setTimeout(hideSlides, 2100);
-  }, { once: true });
-  v.addEventListener("error", () => { showSlides(); v.remove(); }, true);
-  new IntersectionObserver(entries => {
-    entries.forEach(e => e.isIntersecting ? play() : v.pause());
-  }, { threshold: .12 }).observe(v);
-}
 
 function runPreloader() {  const pctEl = $("#loadPct");
   const t0 = performance.now();
