@@ -13,71 +13,83 @@
 <canvas id="bg" aria-hidden="true"></canvas>
 
 <header>
-  <a class="logo" href="#">W10<em>J</em></a>
+  <a class="logo" href="#" onclick="window._home();return false">W10<em>J</em></a>
   <nav id="nav">
-    <a href="#sec-menu">القائمة</a>
-    <a href="#sec-gallery">المعرض</a>
+    <a href="#" onclick="window._home();return false">الرئيسية</a>
+    <a href="#sec-drinks">المشروبات</a>
     <a href="#sec-book">الحجز</a>
     <a href="#sec-location">الموقع</a>
   </nav>
   <button id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
 </header>
 
-<section id="sec-hero" class="hero">
-  <div class="hero-inner">
+<main>
+<!-- HOME: country hub -->
+<section id="sec-home" class="page active">
+  <div class="hero">
     <p class="tag">مطعم عالمي · الخروب · قسنطينة</p>
     <h1>W10 <em>Journey</em></h1>
-    <p class="sub">٧ دول في مطبخ واحد — هند · إيطاليا · إسبانيا · يابان · مكسيك · أمريكا · مشروبات</p>
-    <div class="hero-btns">
-      <a href="#sec-menu" class="btn">اكتشف القائمة</a>
-      <a href="#sec-book" class="btn outline">احجز طاولة</a>
-    </div>
+    <p class="sub">اختر دولتك المفضلة واكتشف نكهاتها</p>
   </div>
+  <div id="countries" class="countries"></div>
 </section>
 
-<section id="sec-menu" class="section">
-  <h2>القائمة</h2>
-  <div id="cats" class="cats"></div>
-  <div class="search-wrap">
-    <input type="search" id="search" placeholder="ابحث عن طبق..." autocomplete="off">
+<!-- COUNTRY MENU (hidden initially) -->
+<section id="sec-country" class="page">
+  <button class="back-btn" onclick="window._home()">← العودة</button>
+  <div class="country-header">
+    <span id="cFlag" class="c-flag"></span>
+    <h2 id="cName"></h2>
+    <p id="cCount" class="c-count"></p>
   </div>
-  <div id="items" class="items"></div>
+  <div id="cCats" class="cats"></div>
+  <input type="search" id="cSearch" class="search" placeholder="ابحث في هذا القسم..." autocomplete="off">
+  <div id="cItems" class="items"></div>
 </section>
 
-<section id="sec-gallery" class="section">
-  <h2>المعرض</h2>
-  <div id="gal" class="gal"></div>
+<!-- DRINKS -->
+<section id="sec-drinks" class="page">
+  <div class="section-top">
+    <h2>المشروبات</h2>
+    <p class="section-sub">مشروبات ساخنة وباردة ومنعشة</p>
+  </div>
+  <div id="dCats" class="cats"></div>
+  <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب..." autocomplete="off">
+  <div id="dItems" class="items"></div>
 </section>
 
-<section id="sec-book" class="section">
-  <h2>احجز طاولة</h2>
+<!-- BOOKING -->
+<section id="sec-book" class="page">
+  <div class="section-top">
+    <h2>احجز طاولة</h2>
+    <p class="section-sub">يومياً من 11:00 إلى 23:00</p>
+  </div>
   <form id="form" class="form">
-    <div class="row">
-      <input name="name" placeholder="الاسم الكامل" required>
-      <input name="phone" type="tel" placeholder="رقم الهاتف" required>
-    </div>
-    <div class="row">
+    <input name="name" placeholder="الاسم الكامل" required>
+    <input name="phone" type="tel" placeholder="رقم الهاتف" required>
+    <div class="row2">
       <input name="date" type="date" required>
       <select name="time" required><option value="">اختر الوقت</option></select>
     </div>
-    <div class="row">
-      <select name="guests">
-        <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
-        <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
-      </select>
-      <input name="section" placeholder="القسم (اختياري)">
-    </div>
-    <textarea name="note" placeholder="ملاحظات خاصة..."></textarea>
+    <select name="guests">
+      <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
+      <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
+    </select>
+    <textarea name="note" placeholder="ملاحظات (اختياري)"></textarea>
     <button type="submit" class="btn full">تأكيد الحجز</button>
   </form>
   <div id="result" class="result hidden"></div>
 </section>
 
-<section id="sec-location" class="section loc">
-  <h2>الموقع</h2>
-  <p class="loc-text">📍 الخروب، قسنطينة، الجزائر<br>📞 يومياً 11:00 ← 23:00</p>
-  <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full" rel="noopener">افتح في خرائط جوجل</a>
+<!-- LOCATION -->
+<section id="sec-location" class="page">
+  <div class="section-top">
+    <h2>الموقع</h2>
+    <p class="section-sub">📍 الخروب، قسنطينة، الجزائر</p>
+  </div>
+  <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full map-btn" rel="noopener">افتح في خرائط جوجل</a>
 </section>
+</main>
 
 <footer>
   <p>W10 Journey · الخروب · قسنطينة</p>
