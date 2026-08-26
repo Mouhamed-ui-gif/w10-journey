@@ -30,6 +30,7 @@ const TAGLINES = {
 };
 
 const FINE_POINTER = matchMedia("(pointer:fine)").matches;
+const MOBILE = matchMedia("(max-width:768px)").matches;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const $ = (s, c = document) => c.querySelector(s);
@@ -674,10 +675,10 @@ function initEmbers() {
   if (!ctx) return;
   let W, H, parts = [];
   const resize = () => {
-    const r = Math.min(devicePixelRatio || 1, 2);
+    const r = Math.min(devicePixelRatio || 1, MOBILE ? 1.5 : 2);
     W = cv.width = cv.offsetWidth * r;
     H = cv.height = cv.offsetHeight * r;
-    parts = Array.from({ length: Math.min(60, W / 22 | 0) }, () => ({
+    parts = Array.from({ length: Math.min(MOBILE ? 22 : 60, W / 22 | 0) }, () => ({
       x: Math.random() * W, y: Math.random() * H,
       r: (Math.random() * 2 + 0.6) * r,
       vy: -(Math.random() * 0.5 + 0.1) * r,
@@ -905,6 +906,8 @@ function initHeroVideo() {
   const v = $("#heroVideo");
   if (!v || reduceMotion || v.dataset.bound) return;
   v.dataset.bound = "1";
+  const conn = navigator.connection || navigator.mozConnection;
+  if (conn && (conn.saveData || /(^|\b)2g\b/i.test(conn.effectiveType || ""))) return;
   const play = () => { const p = v.play && v.play(); p && p.catch && p.catch(() => {}); };
   const showSlides = () => $$("#heroSlides .h-slide").forEach(s => { s.style.opacity = ""; s.style.transitionDuration = ""; });
   const hideSlides = () => $$("#heroSlides .h-slide").forEach(s => { s.style.transitionDuration = "0s"; s.style.opacity = 0; });
