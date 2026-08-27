@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
 <title>W10 Journey | مطعم عالمي - الخروب</title>
-<meta name="theme-color" content="#0d0806">
+<meta name="theme-color" content="#05070d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -15,15 +15,17 @@
   <div class="video-overlay"></div>
 </div>
 
-<!-- SPLASH SCREEN -->
+<!-- SPLASH SCREEN (epic) -->
 <div id="splash" class="splash">
+  <div class="splash-bg" id="splashBg"></div>
+  <div class="splash-veil"></div>
   <div class="splash-inner">
     <div class="splash-logo">
       <span class="splash-ring"></span>
       <span class="splash-ring r2"></span>
       <span class="splash-ring r3"></span>
       <div class="splash-title">W10</div>
-      <div class="splash-sub2">Journey</div>
+      <div class="splash-sub2">JOURNEY</div>
     </div>
     <p class="splash-text">رحلة ذوق حول العالم</p>
     <p class="splash-flags">🇮🇳 🇮🇹 🇪🇸 🇯🇵 🇲🇽 🇺🇸</p>
@@ -46,7 +48,7 @@
 </header>
 
 <main id="main" class="hidden">
-<!-- HOME: country hub -->
+<!-- HOME -->
 <section id="sec-home" class="page active">
   <div class="hero2">
     <h1>اختر <em>دولتك</em></h1>
@@ -57,28 +59,28 @@
   <!-- QUICK ACTIONS -->
   <div class="home-actions">
     <div class="action" id="act-book" onclick="window._go('sec-book')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80')"></div>
+      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">🪑</span>
       <span class="act-name">احجز طاولة</span>
       <span class="act-sub">احجز مقعدك بسهولة</span>
     </div>
     <div class="action" id="act-contact" onclick="window._go('sec-contact')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80')"></div>
+      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">💬</span>
       <span class="act-name">التواصل</span>
       <span class="act-sub">تواصل مع الطاقم</span>
     </div>
     <div class="action" id="act-review" onclick="window._go('sec-review')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80')"></div>
+      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1512909006721-3d6018887383?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">⭐</span>
       <span class="act-name">قيّمنا</span>
       <span class="act-sub">شاركنا رأيك</span>
     </div>
     <div class="action" id="act-loc" onclick="window._go('sec-location')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&q=80')"></div>
+      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">📍</span>
       <span class="act-name">الموقع</span>
@@ -96,9 +98,15 @@
     <h2 id="cName"></h2>
     <p id="cCount" class="c-count"></p>
   </div>
-  <div id="cCats" class="cats"></div>
-  <input type="search" id="cSearch" class="search" placeholder="ابحث..." autocomplete="off">
-  <div id="cItems" class="items"></div>
+  <div class="panel">
+    <div class="panel-img" id="cPanelImg"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <div id="cCats" class="cats"></div>
+      <input type="search" id="cSearch" class="search" placeholder="ابحث..." autocomplete="off">
+      <div id="cItems" class="items"></div>
+    </div>
+  </div>
 </section>
 
 <!-- DRINKS -->
@@ -107,9 +115,15 @@
     <h2>المشروبات</h2>
     <p id="dCount" class="section-sub"></p>
   </div>
-  <div id="dCats" class="cats"></div>
-  <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب..." autocomplete="off">
-  <div id="dItems" class="items"></div>
+  <div class="panel">
+    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=900&q=80')"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <div id="dCats" class="cats"></div>
+      <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب..." autocomplete="off">
+      <div id="dItems" class="items"></div>
+    </div>
+  </div>
 </section>
 
 <!-- BOOKING -->
@@ -118,33 +132,45 @@
     <h2>احجز طاولة</h2>
     <p class="section-sub">يومياً من 11:00 إلى 23:00</p>
   </div>
-  <form id="form" class="form">
-    <input name="name" placeholder="الاسم الكامل" required>
-    <input name="phone" type="tel" placeholder="رقم الهاتف" required>
-    <div class="row2">
-      <input name="date" type="date" required>
-      <select name="time" required><option value="">اختر الوقت</option></select>
+  <div class="panel">
+    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80')"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <form id="form" class="form">
+        <input name="name" placeholder="الاسم الكامل" required>
+        <input name="phone" type="tel" placeholder="رقم الهاتف" required>
+        <div class="row2">
+          <input name="date" type="date" required>
+          <select name="time" required><option value="">اختر الوقت</option></select>
+        </div>
+        <select name="guests">
+          <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
+          <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
+        </select>
+        <textarea name="note" placeholder="ملاحظات (اختياري)"></textarea>
+        <button type="submit" class="btn full">تأكيد الحجز</button>
+      </form>
+      <div id="result" class="result hidden"></div>
     </div>
-    <select name="guests">
-      <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
-      <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
-    </select>
-    <textarea name="note" placeholder="ملاحظات (اختياري)"></textarea>
-    <button type="submit" class="btn full">تأكيد الحجز</button>
-  </form>
-  <div id="result" class="result hidden"></div>
+  </div>
 </section>
 
 <!-- CONTACT -->
 <section id="sec-contact" class="page">
   <div class="section-top">
     <h2>التواصل مع الطاقم</h2>
-    <p class="section-sub">نحن هنا لخدمتك</p>
+    <p class="section-sub">تحدث إلينا من أي مكان</p>
   </div>
-  <div id="contactBtns" class="contact-btns"></div>
-  <div class="contact-info">
-    <p class="ci"><span class="ci-ic">📍</span> الخروب، قسنطينة، الجزائر</p>
-    <p class="ci"><span class="ci-ic">🕒</span> يومياً 11:00 ← 23:00</p>
+  <div class="panel">
+    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1611262588024-d12430b98920?w=900&q=80')"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <div id="contactBtns" class="contact-btns"></div>
+      <div class="contact-info">
+        <p class="ci"><span class="ci-ic">📍</span> الخروب، قسنطينة، الجزائر</p>
+        <p class="ci"><span class="ci-ic">🕒</span> يومياً 11:00 ← 23:00</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -154,16 +180,22 @@
     <h2>قيّم تجربتك</h2>
     <p class="section-sub">رأيك يهمنا ويطورنا</p>
   </div>
-  <div class="stars-wrap">
-    <div id="stars" class="stars">
-      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+  <div class="panel">
+    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=900&q=80')"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <div class="stars-wrap">
+        <div id="stars" class="stars">
+          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+        </div>
+        <div id="starsLabel" class="stars-label">اختر عدد النجوم</div>
+      </div>
+      <textarea id="revText" class="search" placeholder="اكتب ملاحظاتك... (اختياري)" style="min-height:90px;resize:vertical"></textarea>
+      <input id="revName" class="search" placeholder="اسمك (اختياري)">
+      <button class="btn full" id="revSend">إرسال التقييم</button>
+      <div id="revResult" class="result hidden"></div>
     </div>
-    <div id="starsLabel" class="stars-label">اختر عدد النجوم</div>
   </div>
-  <textarea id="revText" class="search" placeholder="اكتب ملاحظاتك... (اختياري)" style="min-height:90px;resize:vertical"></textarea>
-  <input id="revName" class="search" placeholder="اسمك (اختياري)">
-  <button class="btn full" id="revSend">إرسال التقييم</button>
-  <div id="revResult" class="result hidden"></div>
 </section>
 
 <!-- LOCATION -->
@@ -172,7 +204,13 @@
     <h2>الموقع</h2>
     <p class="section-sub">📍 الخروب، قسنطينة، الجزائر</p>
   </div>
-  <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full map-btn" rel="noopener">افتح في خرائط جوجل</a>
+  <div class="panel">
+    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=900&q=80')"></div>
+    <div class="panel-veil"></div>
+    <div class="panel-body">
+      <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full map-btn" rel="noopener">افتح في خرائط جوجل</a>
+    </div>
+  </div>
 </section>
 </main>
 

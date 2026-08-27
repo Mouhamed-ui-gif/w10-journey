@@ -7,12 +7,32 @@ const url=f=>f?CDN+f:"";
 const isMobile=matchMedia("(max-width:680px)").matches;
 const reduceMotion=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-/* ===== SPLASH SCREEN ===== */
+/* ===== SPLASH SCREEN (epic) ===== */
 const splash=$("#splash"),hdr=$("#hdr"),main=$("#main"),ft=$("#ft");
+
+// Epic splash background slideshow
+const splashImages=[
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80",
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80",
+  "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1200&q=80",
+  "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&q=80",
+  "https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80"
+];
+const splashBg=document.getElementById("splashBg");
+let sIdx=0;
+if(splashBg&&!reduceMotion){
+  splashBg.style.backgroundImage=`url('${splashImages[0]}')`;
+  setInterval(()=>{
+    sIdx=(sIdx+1)%splashImages.length;
+    splashBg.style.backgroundImage=`url('${splashImages[sIdx]}')`;
+  },2500);
+}
+
 function enterSite(){
   if(!splash)return showMain();
-  splash.classList.add("go");
-  setTimeout(()=>{splash.remove();showMain()},600);
+  splash.classList.add("go");            // fade out
+  setTimeout(()=>{splash.classList.add("gone");showMain()},650);
+  window.scrollTo(0,0);
 }
 function showMain(){
   hdr&&hdr.classList.remove("hidden");
@@ -21,7 +41,6 @@ function showMain(){
 }
 const splashBtn=$("#splashBtn");
 if(splashBtn)splashBtn.onclick=enterSite;
-setTimeout(enterSite,4000);
 
 /* ===== VIDEO BACKGROUND ===== */
 (function(){
@@ -122,13 +141,14 @@ $$(".action").forEach(tile=>{
 
 /* ===== OPEN COUNTRY MENU ===== */
 const cName=$("#cName"),cFlag=$("#cFlag"),cCount=$("#cCount"),cHero=$("#cHero");
-const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems");
+const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems"),cPanelImg=$("#cPanelImg");
 
 function openCountry(idx){
   const sec=countryData[idx];
   cName.textContent=sec.name;
   cFlag.textContent=sec.flag;
   cHero.style.backgroundImage=`url('${sec.img}')`;
+  if(cPanelImg)cPanelImg.style.backgroundImage=`url('${sec.img}')`;
   let total=0;sec.cats.forEach(c=>total+=c.items.length);
   cCount.textContent=total+" طبق";
 
@@ -238,29 +258,24 @@ window._photo=src=>{if(reduceMotion||!src)return;lbImg.src=src;lb.classList.remo
 if(lbX)lbX.onclick=()=>lb.classList.add("hidden");
 lb.onclick=e=>{if(e.target===lb)lb.classList.add("hidden")};
 
-/* ===== CONTACT ===== */
+/* ===== CONTACT (image tiles) ===== */
 const contactEl=$("#contactBtns");
 if(contactEl){
-  const baseText="مرحباً W10 Journey 👋";
-  // Phone/WhatsApp number not published in the API; using social media instead.
-  contactEl.innerHTML=`
-    <a class="cbtn ig" href="https://www.instagram.com/w10journey/" target="_blank" rel="noopener">
-      <span class="cb-ic">📸</span>
-      <span><span class="cb-name">إنستغرام</span><br><span class="cb-sub">@w10journey · تابعنا</span></span>
+  const contacts=[
+    {cls:"ig",ic:"📸",name:"إنستغرام",sub:"@w10journey · تابعنا",href:"https://www.instagram.com/w10journey/",img:"https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&q=80"},
+    {cls:"fb",ic:"👍",name:"فيسبوك",sub:"w10journey · تواصل معنا",href:"https://www.facebook.com/w10journey",img:"https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&q=80"},
+    {cls:"tk",ic:"🎵",name:"تيك توك",sub:"@w10.journey",href:"https://www.tiktok.com/@w10.journey",img:"https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80"},
+    {cls:"loc2",ic:"📍",name:"الموقع",sub:"الخروب، قسنطينة",href:"https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7",img:"https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400&q=80"}
+  ];
+  contactEl.innerHTML=contacts.map(c=>`
+    <a class="c-btn" href="${c.href}" target="_blank" rel="noopener">
+      <div class="cb-img" style="background-image:url('${c.img}')"></div>
+      <div class="cb-shade"></div>
+      <span class="cb-ic">${c.ic}</span>
+      <span class="cb-name">${c.name}</span>
+      <span class="cb-sub">${c.sub}</span>
     </a>
-    <a class="cbtn fb" href="https://www.facebook.com/w10journey" target="_blank" rel="noopener">
-      <span class="cb-ic">👍</span>
-      <span><span class="cb-name">فيسبوك</span><br><span class="cb-sub">w10journey · تواصل معنا</span></span>
-    </a>
-    <a class="cbtn tk" href="https://www.tiktok.com/@w10.journey" target="_blank" rel="noopener">
-      <span class="cb-ic">🎵</span>
-      <span><span class="cb-name">تيك توك</span><br><span class="cb-sub">@w10.journey</span></span>
-    </a>
-    <a class="cbtn loc2" href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" rel="noopener">
-      <span class="cb-ic">📍</span>
-      <span><span class="cb-name">الموقع</span><br><span class="cb-sub">الخروب، قسنطينة</span></span>
-    </a>
-  `;
+  `).join("");
 }
 
 /* ===== REVIEW ===== */
