@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s),$$=(s,c)=>[...(c||document).querySelectorAll(s)];
 const D=window.W10_DATA;if(!D)return;
 const CDN="https://dyj6gt4964deb.cloudfront.net/images/";
 const url=f=>f?CDN+f:"";
@@ -133,6 +133,40 @@ function openCountry(idx){
   showPage("sec-country");
 }
 
+/* ===== MENU CARD RENDERER (3D) ===== */
+function menuCard(it){
+  const img=it.img?`<div class="item-photo"><img src="${it.img}" alt="${it.n}" loading="lazy" decoding="async"></div>`:`<div class="item-photo no-photo"><div class="item-noimg">${it.n[0]}</div></div>`;
+  return `
+  <div class="item" onclick="window._photo('${it.img||''}')">
+    ${img}
+    <div class="item-info">
+      <div class="item-name">${it.n}</div>
+      ${it.d?`<div class="item-desc">${it.d}</div>`:""}
+      <div class="item-price-row"><span class="item-price">${it.p.toLocaleString("ar-DZ")} ${D.place.currency}</span></div>
+    </div>
+  </div>`;
+}
+
+function bindMenuCards(container){
+  if(reduceMotion)return;
+  $$(".item",container).forEach(card=>{
+    const onMove=(e)=>{
+      const rect=card.getBoundingClientRect();
+      const x=(e.touches?.[0]?.clientX||e.clientX||rect.left)-rect.left;
+      const y=(e.touches?.[0]?.clientY||e.clientY||rect.top)-rect.top;
+      const cx=rect.width/2,cy=rect.height/2;
+      const rx=((y-cy)/cy)*-10;
+      const ry=((x-cx)/cx)*10;
+      card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    };
+    const onEnd=()=>{card.style.transform=""};
+    card.addEventListener("mousemove",onMove);
+    card.addEventListener("touchmove",onMove,{passive:true});
+    card.addEventListener("mouseleave",onEnd);
+    card.addEventListener("touchend",onEnd);
+  });
+}
+
 function renderCountryItems(sec,cat,query){
   let items=[];
   sec.cats.forEach(c=>{
@@ -142,13 +176,8 @@ function renderCountryItems(sec,cat,query){
   });
   if(cat!=="all")items=items.filter(i=>i.cat===cat);
   if(query){const q=query.toLowerCase();items=items.filter(i=>i.n.toLowerCase().includes(q)||i.d?.toLowerCase().includes(q))}
-  cItems.innerHTML=items.length?items.map(it=>`
-    <div class="item" onclick="window._photo('${it.img}')">
-      <div class="item-name">${it.n}</div>
-      <div class="item-price">${it.p.toLocaleString("ar-DZ")} ${D.place.currency}</div>
-      <div class="item-desc">${it.d||""}</div>
-      ${it.img?`<div class="item-photo"><img src="${it.img}" alt="${it.n}" loading="lazy" decoding="async"></div>`:""}
-    </div>`).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem">لا توجد نتائج</p>`;
+  cItems.innerHTML=items.length?items.map(menuCard).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem;grid-column:1/-1">لا توجد نتائج</p>`;
+  bindMenuCards(cItems);
 }
 
 /* ===== DRINKS ===== */
@@ -168,13 +197,8 @@ if(drinksSection){
     drinksSection.cats.forEach(c=>c.items.forEach(it=>items.push({...it,cat:c.name,img:url(it.img)})));
     if(cat!=="all")items=items.filter(i=>i.cat===cat);
     if(query){const q=query.toLowerCase();items=items.filter(i=>i.n.toLowerCase().includes(q)||i.d?.toLowerCase().includes(q))}
-    dItems.innerHTML=items.length?items.map(it=>`
-      <div class="item" onclick="window._photo('${it.img}')">
-        <div class="item-name">${it.n}</div>
-        <div class="item-price">${it.p.toLocaleString("ar-DZ")} ${D.place.currency}</div>
-        <div class="item-desc">${it.d||""}</div>
-        ${it.img?`<div class="item-photo"><img src="${it.img}" alt="${it.n}" loading="lazy" decoding="async"></div>`:""}
-      </div>`).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem">لا توجد نتائج</p>`;
+    dItems.innerHTML=items.length?items.map(menuCard).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem;grid-column:1/-1">لا توجد نتائج</p>`;
+    bindMenuCards(dItems);
   }
   renderDrinks("all","");
   $$("#dCats .cat").forEach(b=>{
