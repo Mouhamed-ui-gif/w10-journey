@@ -2,230 +2,274 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
-<title>W10 Journey | مطعم عالمي - الخروب</title>
-<meta name="theme-color" content="#05070d">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07060a">
+<title>W10 Journey — رحلة تذوّق حول العالم</title>
+<meta name="description" content="مطعم W10 Journey في الخروب، قسنطينة. رحلة ذوق تجمع نكهات الهند، إيطاليا، إسبانيا، اليابان، المكسيك وأمريكا.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="video-bg">
-  <video id="bgVid" autoplay muted loop playsinline></video>
-  <div class="video-overlay"></div>
-</div>
 
-<!-- SPLASH SCREEN (epic) -->
+<!-- SPLASH -->
 <div id="splash" class="splash">
   <div class="splash-bg" id="splashBg"></div>
   <div class="splash-veil"></div>
   <div class="splash-inner">
-    <div class="splash-logo">
-      <span class="splash-ring"></span>
-      <span class="splash-ring r2"></span>
-      <span class="splash-ring r3"></span>
-      <div class="splash-title">W10</div>
-      <div class="splash-sub2">JOURNEY</div>
+    <div class="splash-brand">
+      <div class="splash-monogram">W10</div>
+      <div class="splash-word" id="splashWord" >JOURNEY</div>
+      <div class="splash-rule"><span></span></div>
+      <p class="splash-tag">رحلة تذوّق حول العالم</p>
+      <p class="splash-loc">الخروب · قسنطينة · الجزائر</p>
     </div>
-    <p class="splash-text">رحلة ذوق حول العالم</p>
-    <p class="splash-flags">🇮🇳 🇮🇹 🇪🇸 🇯🇵 🇲🇽 🇺🇸</p>
-    <button id="splashBtn" class="splash-btn">ابدأ الرحلة</button>
-    <p class="splash-loc">الخروب · قسنطينة · الجزائر</p>
+    <button id="splashBtn" class="splash-btn">
+      <span class="sbtn-txt">ادخل المطعم</span>
+      <span class="sbtn-dot"></span>
+    </button>
   </div>
 </div>
 
+<!-- CURSOR GLOW -->
+<div class="glow" id="glow"></div>
+
 <!-- HEADER -->
-<header id="hdr" class="hdr hidden">
-  <a class="logo" href="#" onclick="window._home();return false">W10<em>J</em></a>
-  <nav id="nav">
-    <a href="#" onclick="window._home();return false">الرئيسية</a>
-    <a href="#" onclick="window._go('sec-drinks');return false">المشروبات</a>
-    <a href="#" onclick="window._go('sec-book');return false">الحجز</a>
-    <a href="#" onclick="window._go('sec-contact');return false">التواصل</a>
-    <a href="#" onclick="window._go('sec-review');return false">التقييم</a>
-  </nav>
+<header class="hdr" id="hdr">
+  <div class="hdr-inner">
+    <a class="logo" href="#" onclick="window._home();return false">W10<span>Journey</span></a>
+    <nav class="topnav" id="topnav">
+      <a href="#" data-g="sec-home">الرئيسية</a>
+      <a href="#" data-g="sec-cuisines">المطابخ</a>
+      <a href="#" data-g="sec-drinks">المشروبات</a>
+      <a href="#" data-g="sec-book">الحجز</a>
+      <a href="#" data-g="sec-review">التقييم</a>
+    </nav>
+    <div class="hdr-cta">
+      <a class="hdr-btn" href="#" onclick="window._go('sec-book');return false">احجز الآن</a>
+    </div>
+  </div>
 </header>
 
-<main id="main" class="hidden">
-<!-- HOME -->
-<section id="sec-home" class="page active">
-  <div class="hero2">
-    <h1>اختر <em>دولتك</em></h1>
-    <p class="sub">اكتشف نكهات العالم في مكان واحد</p>
-  </div>
-  <div id="countries" class="countries"></div>
-
-  <!-- QUICK ACTIONS -->
-  <div class="home-actions">
-    <div class="action reveal" id="act-book" style="transition-delay:0ms" onclick="window._go('sec-book')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=500&q=80')"></div>
-      <div class="act-shade"></div>
-      <span class="act-emoji">🪑</span>
-      <span class="act-name">احجز طاولة</span>
-      <span class="act-sub">احجز مقعدك بسهولة</span>
-    </div>
-    <div class="action reveal" id="act-contact" style="transition-delay:80ms" onclick="window._go('sec-contact')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&q=80')"></div>
-      <div class="act-shade"></div>
-      <span class="act-emoji">💬</span>
-      <span class="act-name">التواصل</span>
-      <span class="act-sub">تواصل مع الطاقم</span>
-    </div>
-    <div class="action reveal" id="act-review" style="transition-delay:160ms" onclick="window._go('sec-review')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1512909006721-3d6018887383?w=500&q=80')"></div>
-      <div class="act-shade"></div>
-      <span class="act-emoji">⭐</span>
-      <span class="act-name">قيّمنا</span>
-      <span class="act-sub">شاركنا رأيك</span>
-    </div>
-    <div class="action reveal" id="act-loc" style="transition-delay:240ms" onclick="window._go('sec-location')">
-      <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&q=80')"></div>
-      <div class="act-shade"></div>
-      <span class="act-emoji">📍</span>
-      <span class="act-name">الموقع</span>
-      <span class="act-sub">وجهنا إليك</span>
-    </div>
-  </div>
-</section>
-
-<!-- COUNTRY MENU -->
-<section id="sec-country" class="page">
-  <button class="back-btn" onclick="window._home()">← العودة</button>
-  <div class="country-header">
-    <div id="cHero" class="c-hero-img"></div>
-    <span id="cFlag" class="c-flag"></span>
-    <h2 id="cName"></h2>
-    <p id="cCount" class="c-count"></p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" id="cPanelImg"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <div id="cCats" class="cats"></div>
-      <input type="search" id="cSearch" class="search" placeholder="ابحث..." autocomplete="off">
-      <div id="cItems" class="items"></div>
-    </div>
-  </div>
-</section>
-
-<!-- DRINKS -->
-<section id="sec-drinks" class="page">
-  <div class="section-top">
-    <h2>المشروبات</h2>
-    <p id="dCount" class="section-sub"></p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=900&q=80')"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <div id="dCats" class="cats"></div>
-      <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب..." autocomplete="off">
-      <div id="dItems" class="items"></div>
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING -->
-<section id="sec-book" class="page">
-  <div class="section-top">
-    <h2>احجز طاولة</h2>
-    <p class="section-sub">يومياً من 11:00 إلى 23:00</p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80')"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <form id="form" class="form">
-        <input name="name" placeholder="الاسم الكامل" required>
-        <input name="phone" type="tel" placeholder="رقم الهاتف" required>
-        <div class="row2">
-          <input name="date" type="date" required>
-          <select name="time" required><option value="">اختر الوقت</option></select>
-        </div>
-        <select name="guests">
-          <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
-          <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
-        </select>
-        <textarea name="note" placeholder="ملاحظات (اختياري)"></textarea>
-        <button type="submit" class="btn full">تأكيد الحجز</button>
-      </form>
-      <div id="result" class="result hidden"></div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="sec-contact" class="page">
-  <div class="section-top">
-    <h2>التواصل مع الطاقم</h2>
-    <p class="section-sub">تحدث إلينا من أي مكان</p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1611262588024-d12430b98920?w=900&q=80')"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <div id="contactBtns" class="contact-btns"></div>
-      <div class="contact-info">
-        <p class="ci"><span class="ci-ic">📍</span> الخروب، قسنطينة، الجزائر</p>
-        <p class="ci"><span class="ci-ic">🕒</span> يومياً 11:00 ← 23:00</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEW -->
-<section id="sec-review" class="page">
-  <div class="section-top">
-    <h2>قيّم تجربتك</h2>
-    <p class="section-sub">رأيك يهمنا ويطورنا</p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=900&q=80')"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <div class="stars-wrap">
-        <div id="stars" class="stars">
-          <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
-        </div>
-        <div id="starsLabel" class="stars-label">اختر عدد النجوم</div>
-      </div>
-      <textarea id="revText" class="search" placeholder="اكتب ملاحظاتك... (اختياري)" style="min-height:90px;resize:vertical"></textarea>
-      <input id="revName" class="search" placeholder="اسمك (اختياري)">
-      <button class="btn full" id="revSend">إرسال التقييم</button>
-      <div id="revResult" class="result hidden"></div>
-    </div>
-  </div>
-</section>
-
-<!-- LOCATION -->
-<section id="sec-location" class="page">
-  <div class="section-top">
-    <h2>الموقع</h2>
-    <p class="section-sub">📍 الخروب، قسنطينة، الجزائر</p>
-  </div>
-  <div class="panel">
-    <div class="panel-img" style="background-image:url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=900&q=80')"></div>
-    <div class="panel-veil"></div>
-    <div class="panel-body">
-      <a href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" class="btn full map-btn" rel="noopener">افتح في خرائط جوجل</a>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer id="ft" class="hidden"><p>W10 Journey · الخروب · قسنطينة</p></footer>
-
 <!-- MOBILE BOTTOM NAV -->
-<nav id="bnav" class="bnav hidden" aria-label="التنقل السفلي">
-  <button class="bnav-i on" data-go="sec-home"><span class="bn-ic">🏠</span><span>الرئيسية</span></button>
-  <button class="bnav-i" data-go="sec-drinks"><span class="bn-ic">🥤</span><span>مشروبات</span></button>
-  <button class="bnav-i" data-go="sec-book"><span class="bn-ic">🪑</span><span>حجز</span></button>
-  <button class="bnav-i" data-go="sec-contact"><span class="bn-ic">💬</span><span>تواصل</span></button>
-  <button class="bnav-i" data-go="sec-review"><span class="bn-ic">⭐</span><span>تقييم</span></button>
+<nav class="bnav" id="bnav">
+  <button class="bnav-i" data-go="sec-home"><span class="bn-ic">◈</span><span>الرئيسية</span></button>
+  <button class="bnav-i" data-go="sec-cuisines"><span class="bn-ic">◉</span><span>المطابخ</span></button>
+  <button class="bnav-i bnav-mid" data-go="sec-book"><span class="bn-ic">✦</span><span>حجز</span></button>
+  <button class="bnav-i" data-go="sec-drinks"><span class="bn-ic">❋</span><span>مشروبات</span></button>
+  <button class="bnav-i" data-go="sec-review"><span class="bn-ic">☆</span><span>تقييم</span></button>
 </nav>
 
+<main id="main">
+
+<!-- ============ HOME ============ -->
+<section id="sec-home" class="page active">
+
+  <!-- CINEMATIC HERO -->
+  <div class="hero">
+    <div class="hero-mask">
+      <div class="hero-img" id="heroImg"></div>
+      <div class="hero-scrim"></div>
+      <div class="hero-vignette"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow reel">مطعم · الخروب · قسنطينة</p>
+      <h1 class="hero-title">
+        <span class="line line-1"><span class="gold">رحلة&nbsp;ذوق</span></span>
+        <span class="line line-2">حول <em class="em-gold">العالم</em></span>
+      </h1>
+      <p class="hero-desc reel">من توابل الهند ودقة اليابان، إلى حرارة المكسيك وعمق إيطاليا — ست مطابخ عالمية في مطبخ واحد.</p>
+      <div class="hero-actions reel">
+        <a class="btn btn-gold" href="#" onclick="window._go('sec-cuisines');return false">استكشف المطابخ <span class="arr">↓</span></a>
+        <a class="btn btn-ghost" href="#" onclick="window._go('sec-book');return false">احجز طاولة</a>
+      </div>
+      <div class="hero-badges reel">
+        <span class="hb">🇮🇳</span><span class="hb">🇮🇹</span><span class="hb">🇪🇸</span><span class="hb">🇯🇵</span><span class="hb">🇲🇽</span><span class="hb">🇺🇸</span>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="window._go('sec-cuisines')"><span>مرّر</span><i class="wheel"></i></div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee" id="marquee">
+      <span>الهند</span><span class="dot">✦</span><span>إيطاليا</span><span class="dot">✦</span>
+      <span>إسبانيا</span><span class="dot">✦</span><span>اليابان</span><span class="dot">✦</span>
+      <span>المكسيك</span><span class="dot">✦</span><span>أمريكا</span><span class="dot">✦</span>
+      <span>مشروبات</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section about reveal" id="sec-about">
+    <div class="sec-head">
+      <p class="kicker">قصّتنا</p>
+      <h2>مطبخٌ واحد.. <span class="gold">نكهات العالم كلّه</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80" alt="داخل المطعم" loading="lazy">
+        <div class="about-badge"><b>6</b><span>مطابخ عالمية</span></div>
+      </div>
+      <div class="about-text reveal">
+        <p>في <b>W10 Journey</b>، كل طبق قصّة تُروى ليست بقولنا، بل بنكهاتها. نسافر بك عبر القارات في رحلة واحدة، بوصفات تمزج الأصالة باللمسة العصرية.</p>
+        <ul class="about-points">
+          <li><span class="ap-ic">◉</span> مكوّنات طازجة تُحضَّر يومياً</li>
+          <li><span class="ap-ic">◉</span> أجواء صمّمناها لتشبه العالم كلّه</li>
+          <li><span class="ap-ic">◉</span> خدمة تهتم بتفاصيل لحظتك</li>
+        </ul>
+        <a class="btn btn-gold sm" href="#" onclick="window._go('sec-book');return false">احجز تجربتك</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats reveal">
+    <div class="stat"><b data-count="233">0</b><span>طبق عالمي</span></div>
+    <div class="stat"><b data-count="6">0</b><span>مطابخ</span></div>
+    <div class="stat"><b data-count="38">0</b><span>مشروب</span></div>
+    <div class="stat"><b data-count="10">0</b><span>كاتيغوريات مشروبات</span></div>
+  </div>
+
+  <!-- CUISINES -->
+  <div class="section" id="sec-cuisines">
+    <div class="sec-head">
+      <p class="kicker">المطابخ</p>
+      <h2>اختر <span class="gold">رحلتك</span></h2>
+      <p class="sec-sub">ست نكهات.. ابدأ بسفرك الآن</p>
+    </div>
+    <div id="countries" class="cuisines"></div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="section">
+    <div class="sec-head">
+      <p class="kicker">خدماتنا</p>
+      <h2>كل ما تحتاجه <span class="gold">بلمسة واحدة</span></h2>
+    </div>
+    <div class="quickgrid">
+      <div class="quick reveal" onclick="window._go('sec-book')">
+        <span class="q-ic">🪑</span><h3>احجز طاولة</h3><p>أكّد مقعدك في ثوانٍ</p>
+      </div>
+      <div class="quick reveal" onclick="window._go('sec-contact')">
+        <span class="q-ic">💬</span><h3>تواصل معنا</h3><p>اسألنا عن أي شيء</p>
+      </div>
+      <div class="quick reveal" onclick="window._go('sec-review')">
+        <span class="q-ic">⭐</span><h3>قيّمنا</h3><p>رأيك يصنع الفرق</p>
+      </div>
+      <div class="quick reveal" onclick="window._openLoc()">
+        <span class="q-ic">📍</span><h3>موقعنا</h3><p>افتح الخريطة فوراً</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ COUNTRY MENU ============ -->
+<section id="sec-country" class="page">
+  <div class="country-head">
+    <div class="ch-bg" id="chBg"></div>
+    <div class="ch-scrim"></div>
+    <div class="ch-inner">
+      <span class="ch-flag" id="cFlag">🇮🇳</span>
+      <h2 id="cName">الهند</h2>
+      <p id="cCount" class="ch-count"></p>
+    </div>
+    <button class="back-btn" onclick="window._home()">← عودة</button>
+  </div>
+  <div class="country-body">
+    <div id="cCats" class="cats"></div>
+    <input type="search" id="cSearch" class="search" placeholder="ابحث في القائمة...">
+    <div id="cItems" class="items"></div>
+  </div>
+</section>
+
+<!-- ============ DRINKS ============ -->
+<section id="sec-drinks" class="page">
+  <div class="sec-head">
+    <p class="kicker">المشروبات</p>
+    <h2>لحظة <span class="gold">ارتواء</span></h2>
+  </div>
+  <div id="dCats" class="cats"></div>
+  <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب...">
+  <div id="dItems" class="items"></div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="sec-book" class="page">
+  <div class="sec-head">
+    <p class="kicker">الحجز</p>
+    <h2>احجز طاولتك <span class="gold">الآن</span></h2>
+    <p class="sec-sub">يومياً 11:00 ← 23:00</p>
+  </div>
+  <form id="form" class="form panel reveal">
+    <label class="fld"><span>الاسم الكامل</span><input name="name" placeholder="مثال: محمد" required></label>
+    <label class="fld"><span>رقم الهاتف</span><input name="phone" type="tel" placeholder="05xxxxxxxx" required></label>
+    <div class="row2">
+      <label class="fld"><span>اليوم</span><input name="date" type="date" required></label>
+      <label class="fld"><span>الوقت</span><select name="time" required><option value="">اختر الوقت</option></select></label>
+    </div>
+    <label class="fld"><span>عدد الأشخاص</span>
+      <select name="guests">
+        <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
+        <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
+      </select>
+    </label>
+    <label class="fld"><span>ملاحظات (اختياري)</span><textarea name="note" placeholder="مناسبة خاصة؟ طلب جانب النافذة؟"></textarea></label>
+    <button type="submit" class="btn btn-gold full">تأكيد الحجز <span class="arr">→</span></button>
+  </form>
+  <div id="result" class="result hidden"></div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="sec-contact" class="page">
+  <div class="sec-head">
+    <p class="kicker">التواصل</p>
+    <h2>ابقَ على <span class="gold">تواصل</span></h2>
+  </div>
+  <div id="contactBtns" class="contact-grid"></div>
+  <div class="contact-info panel reveal">
+    <div class="ci"><span class="ci-ic">📍</span><span>الخروب، قسنطينة، الجزائر</span></div>
+    <div class="ci"><span class="ci-ic">🕒</span><span>يومياً 11:00 ← 23:00</span></div>
+    <div class="ci"><span class="ci-ic">✦</span><span>@w10journey على كل المنصات</span></div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section id="sec-review" class="page">
+  <div class="sec-head">
+    <p class="kicker">رأيك يهمّنا</p>
+    <h2>قيّم <span class="gold">تجربتك</span></h2>
+  </div>
+  <div class="stars-wrap panel reveal">
+    <div id="stars" class="stars">
+      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+    </div>
+    <div id="starsLabel" class="stars-label">اضغط على النجوم لتقييمنا</div>
+    <textarea id="revText" placeholder="شاركنا تفاصيل زيارتك... (اختياري)"></textarea>
+    <input id="revName" placeholder="اسمك (اختياري)">
+    <button class="btn btn-gold full" id="revSend">إرسال التقييم</button>
+    <div id="revResult" class="result hidden"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div class="ftr-brand">W10<span>Journey</span></div>
+    <p>رحلة تذوّق حول العالم — الخروب، قسنطينة</p>
+    <div class="ftr-socials">
+      <a href="https://www.instagram.com/w10journey/" target="_blank" rel="noopener" aria-label="انستغرام">◉</a>
+      <a href="https://www.facebook.com/w10journey" target="_blank" rel="noopener" aria-label="فيسبوك">◉</a>
+      <a href="https://www.tiktok.com/@w10.journey" target="_blank" rel="noopener" aria-label="تيك توك">◉</a>
+    </div>
+  </div>
+</footer>
+
 <div id="toast" class="toast hidden"></div>
-<div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">&times;</button><img id="lbImg" alt=""></div>
+<div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">×</button><img id="lbImg" alt=""></div>
 
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
