@@ -142,6 +142,23 @@
     <div id="countries" class="cuisines"></div>
   </div>
 
+  <!-- SIGNATURE DISHES -->
+  <div class="section sig-section" id="sec-sig">
+    <div class="sig-cols">
+      <div class="sig-feature reveal">
+        <div class="sig-img" id="sigImg"><span class="sig-tag">طبق المطبخ المميز</span><img id="sigPhoto" alt="طبق مميز"></div>
+        <div class="sig-caption">
+          <p class="kicker">اختيارنا</p>
+          <h2 id="sigName">أطباق مميزة</h2>
+          <p id="sigDesc" class="sec-sub"></p>
+          <div class="sig-price" id="sigPrice"></div>
+          <button class="btn btn-gold" id="sigOrder" onclick="window._go('sec-country')">شاهد كل الأطباق →</button>
+        </div>
+      </div>
+      <div class="sig-list" id="sigList"></div>
+    </div>
+  </div>
+
   <!-- QUICK ACTIONS -->
   <div class="section">
     <div class="sec-head">
@@ -179,6 +196,7 @@
     <button class="back-btn" onclick="window._home()">← عودة</button>
   </div>
   <div class="country-body">
+    <div id="cGallery" class="gallery reveal"></div>
     <div id="cCats" class="cats"></div>
     <input type="search" id="cSearch" class="search" placeholder="ابحث في القائمة...">
     <div id="cItems" class="items"></div>
@@ -186,71 +204,87 @@
 </section>
 
 <!-- ============ DRINKS ============ -->
-<section id="sec-drinks" class="page">
-  <div class="sec-head">
-    <p class="kicker">المشروبات</p>
-    <h2>لحظة <span class="gold">ارتواء</span></h2>
+<section id="sec-drinks" class="page page-drinks">
+  <div class="pbg" style="background-image:url('https://images.unsplash.com/photo-1544145945-f90425340c7e?w=1400&q=80')"></div>
+  <div class="pbg-scrim"></div>
+  <div class="pbg-content">
+    <div class="sec-head">
+      <p class="kicker">المشروبات</p>
+      <h2>لحظة <span class="gold">ارتواء</span></h2>
+    </div>
+    <div id="dCats" class="cats"></div>
+    <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب...">
+    <div id="dItems" class="items"></div>
   </div>
-  <div id="dCats" class="cats"></div>
-  <input type="search" id="dSearch" class="search" placeholder="ابحث عن مشروب...">
-  <div id="dItems" class="items"></div>
 </section>
 
 <!-- ============ BOOKING ============ -->
-<section id="sec-book" class="page">
-  <div class="sec-head">
-    <p class="kicker">الحجز</p>
-    <h2>احجز طاولتك <span class="gold">الآن</span></h2>
-    <p class="sec-sub">يومياً 11:00 ← 23:00</p>
-  </div>
-  <form id="form" class="form panel reveal">
-    <label class="fld"><span>الاسم الكامل</span><input name="name" placeholder="مثال: محمد" required></label>
-    <label class="fld"><span>رقم الهاتف</span><input name="phone" type="tel" placeholder="05xxxxxxxx" required></label>
-    <div class="row2">
-      <label class="fld"><span>اليوم</span><input name="date" type="date" required></label>
-      <label class="fld"><span>الوقت</span><select name="time" required><option value="">اختر الوقت</option></select></label>
+<section id="sec-book" class="page page-book">
+  <div class="pbg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80')"></div>
+  <div class="pbg-scrim"></div>
+  <div class="pbg-content">
+    <div class="sec-head">
+      <p class="kicker">الحجز</p>
+      <h2>احجز طاولتك <span class="gold">الآن</span></h2>
+      <p class="sec-sub">يومياً 11:00 ← 23:00</p>
     </div>
-    <label class="fld"><span>عدد الأشخاص</span>
-      <select name="guests">
-        <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
-        <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
-      </select>
-    </label>
-    <label class="fld"><span>ملاحظات (اختياري)</span><textarea name="note" placeholder="مناسبة خاصة؟ طلب جانب النافذة؟"></textarea></label>
-    <button type="submit" class="btn btn-gold full">تأكيد الحجز <span class="arr">→</span></button>
-  </form>
-  <div id="result" class="result hidden"></div>
+    <form id="form" class="form panel reveal">
+      <label class="fld"><span>الاسم الكامل</span><input name="name" placeholder="مثال: محمد" required></label>
+      <label class="fld"><span>رقم الهاتف</span><input name="phone" type="tel" placeholder="05xxxxxxxx" required></label>
+      <div class="row2">
+        <label class="fld"><span>اليوم</span><input name="date" type="date" required></label>
+        <label class="fld"><span>الوقت</span><select name="time" required><option value="">اختر الوقت</option></select></label>
+      </div>
+      <label class="fld"><span>عدد الأشخاص</span>
+        <select name="guests">
+          <option>1 شخص</option><option selected>2 أشخاص</option><option>3 أشخاص</option>
+          <option>4 أشخاص</option><option>5 أشخاص</option><option>6+ أشخاص</option>
+        </select>
+      </label>
+      <label class="fld"><span>ملاحظات (اختياري)</span><textarea name="note" placeholder="مناسبة خاصة؟ طلب جانب النافذة؟"></textarea></label>
+      <button type="submit" class="btn btn-gold full">تأكيد الحجز <span class="arr">→</span></button>
+    </form>
+    <div id="result" class="result hidden"></div>
+  </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section id="sec-contact" class="page">
-  <div class="sec-head">
-    <p class="kicker">التواصل</p>
-    <h2>ابقَ على <span class="gold">تواصل</span></h2>
-  </div>
-  <div id="contactBtns" class="contact-grid"></div>
-  <div class="contact-info panel reveal">
-    <div class="ci"><span class="ci-ic">📍</span><span>الخروب، قسنطينة، الجزائر</span></div>
-    <div class="ci"><span class="ci-ic">🕒</span><span>يومياً 11:00 ← 23:00</span></div>
-    <div class="ci"><span class="ci-ic">✦</span><span>@w10journey على كل المنصات</span></div>
+<section id="sec-contact" class="page page-contact">
+  <div class="pbg" style="background-image:url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1400&q=80')"></div>
+  <div class="pbg-scrim"></div>
+  <div class="pbg-content">
+    <div class="sec-head">
+      <p class="kicker">التواصل</p>
+      <h2>ابقَ على <span class="gold">تواصل</span></h2>
+    </div>
+    <div id="contactBtns" class="contact-grid"></div>
+    <div class="contact-info panel reveal">
+      <div class="ci"><span class="ci-ic">📍</span><span>الخروب، قسنطينة، الجزائر</span></div>
+      <div class="ci"><span class="ci-ic">🕒</span><span>يومياً 11:00 ← 23:00</span></div>
+      <div class="ci"><span class="ci-ic">✦</span><span>@w10journey على كل المنصات</span></div>
+    </div>
   </div>
 </section>
 
 <!-- ============ REVIEW ============ -->
-<section id="sec-review" class="page">
-  <div class="sec-head">
-    <p class="kicker">رأيك يهمّنا</p>
-    <h2>قيّم <span class="gold">تجربتك</span></h2>
-  </div>
-  <div class="stars-wrap panel reveal">
-    <div id="stars" class="stars">
-      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+<section id="sec-review" class="page page-review">
+  <div class="pbg" style="background-image:url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&q=80')"></div>
+  <div class="pbg-scrim"></div>
+  <div class="pbg-content">
+    <div class="sec-head">
+      <p class="kicker">رأيك يهمّنا</p>
+      <h2>قيّم <span class="gold">تجربتك</span></h2>
     </div>
-    <div id="starsLabel" class="stars-label">اضغط على النجوم لتقييمنا</div>
-    <textarea id="revText" placeholder="شاركنا تفاصيل زيارتك... (اختياري)"></textarea>
-    <input id="revName" placeholder="اسمك (اختياري)">
-    <button class="btn btn-gold full" id="revSend">إرسال التقييم</button>
-    <div id="revResult" class="result hidden"></div>
+    <div class="stars-wrap panel reveal">
+      <div id="stars" class="stars">
+        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+      </div>
+      <div id="starsLabel" class="stars-label">اضغط على النجوم لتقييمنا</div>
+      <textarea id="revText" placeholder="شاركنا تفاصيل زيارتك... (اختياري)"></textarea>
+      <input id="revName" placeholder="اسمك (اختياري)">
+      <button class="btn btn-gold full" id="revSend">إرسال التقييم</button>
+      <div id="revResult" class="result hidden"></div>
+    </div>
   </div>
 </section>
 

@@ -4,6 +4,7 @@ const $=s=>document.querySelector(s),$$=(s,c)=>[...(c||document).querySelectorAl
 const D=window.W10_DATA;if(!D)return;
 const CDN="https://dyj6gt4964deb.cloudfront.net/images/";
 const url=f=>f?CDN+f:"";
+const abs=f=>/\bhttps?:/.test(f||"")?f:url(f);
 const reduceMotion=matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 /* ================= SPLASH ================= */
@@ -128,9 +129,58 @@ if(countriesEl){
   });
 }
 
+/* ================= SIGNATURE DISHES ================= */
+function buildSignature(){
+  const list=$("#sigList");
+  if(!list)return;
+  // pick a few dishes with images across cuisines
+  const picks=[];
+  const taken=new Set();
+  countryData.forEach(c=>{
+    const pool=flatten(c).filter(it=>it.img&&!taken.has(it.n));
+    if(pool.length){
+      const it=pool[Math.floor(Math.random()*pool.length)];
+      it.cName=c.name;it.cFlag=c.flag;
+      taken.add(it.n);picks.push(it);
+    }
+  });
+  // rotate featured among picks
+  let idx=0;
+  const feats=$("#sigPhoto"),fName=$("#sigName"),fDesc=$("#sigDesc"),fPrice=$("#sigPrice");
+  function show(i){
+    const it=picks[i];
+    if(!it)return;
+    feats.style.opacity=0;
+    feats.src=abs(it.img);
+    fName.textContent=it.n;
+    fDesc.textContent=(it.d?it.d+" · ":"")+it.cFlag+" "+it.cName;
+    fPrice.innerHTML=`<span class="sig-price-badge">${it.p.toLocaleString("ar-DZ")} ${D.place.currency}</span>`;
+    requestAnimationFrame(()=>{feats.style.opacity=1});
+  }
+  list.innerHTML=picks.map((it,i)=>`
+    <div class="sig-row reveal" style="transition-delay:${i*60}ms" onclick="window._go('sec-country');window._pickCountry && window._pickCountry('${it.cName}')">
+      <div class="sig-row-img"><img src="${abs(it.img)}" alt="${it.n}" loading="lazy"></div>
+      <div class="sig-row-info">
+        <p class="sig-row-name">${it.n}</p>
+        <p class="sig-row-meta">${it.cFlag} ${it.cName}</p>
+      </div>
+      <div class="sig-row-price">${it.p.toLocaleString("ar-DZ")}</div>
+    </div>
+  `).join("");
+  window._pickCountry=function(cname){
+    const ci=countryData.findIndex(c=>c.name===cname);
+    if(ci>=0)openCountry(ci);
+  };
+  if($("#sigList")&&picks.length){
+    show(0);
+    if(!reduceMotion){let n=0;setInterval(()=>{n=(n+1)%picks.length;show(n)},4500);}
+  }
+}
+if($("#sigList"))buildSignature();
+
 /* ================= OPEN COUNTRY ================= */
 const cName=$("#cName"),cFlagE=$("#cFlag"),cCountE=$("#cCount"),chBg=$("#chBg");
-const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems");
+const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems"),cGallery=$("#cGallery");
 function openCountry(idx){
   const sec=countryData[idx];
   if(cName)cName.textContent=sec.name;
@@ -138,9 +188,21 @@ function openCountry(idx){
   if(chBg)chBg.style.backgroundImage=`url('${sec.img}')`;
   let total=0;sec.cats.forEach(c=>total+=c.items.length);
   if(cCountE)cCountE.textContent=`أكثر من ${total} طبق · ${sec.cats.length} أصناف`;
+  renderGallery(sec);
   renderCountry(sec);
   showPage("sec-country");
   initReveal();
+}
+function renderGallery(sec){
+  if(!cGallery)return;
+  const imgs=(sec.gallery||[]).filter(Boolean);
+  if(!imgs.length){cGallery.style.display="none";return}
+  cGallery.style.display="";
+  cGallery.innerHTML=`<div class="gal-head"><p class="kicker">لقطات من الأجواء</p></div><div class="gal-grid">`+imgs.map((g,i)=>`
+    <div class="gal-item reveal" style="transition-delay:${(i%4)*70}ms" onclick="window._photo('${abs(g)}')">
+      <img src="${abs(g)}" alt="لقطة من المطعم" loading="lazy">
+    </div>
+  `).join("")+`</div>`;
 }
 function renderCountry(sec){
   let total=0;sec.cats.forEach(c=>total+=c.items.length);
