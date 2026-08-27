@@ -45,6 +45,8 @@ function showPage(id){
   window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"});
 }
 window._home=()=>showPage("sec-home");
+window._go=id=>showPage(id);
+window._contact=()=>showPage("sec-review");
 
 /* ===== DATA ===== */
 const foodSections=D.sections.filter(s=>s.ar!=="المشروبات");
@@ -216,6 +218,57 @@ const lb=$("#lightbox"),lbImg=$("#lbImg"),lbX=$(".lb-x");
 window._photo=src=>{if(reduceMotion||!src)return;lbImg.src=src;lb.classList.remove("hidden")};
 if(lbX)lbX.onclick=()=>lb.classList.add("hidden");
 lb.onclick=e=>{if(e.target===lb)lb.classList.add("hidden")};
+
+/* ===== CONTACT ===== */
+const contactEl=$("#contactBtns");
+if(contactEl){
+  const baseText="مرحباً W10 Journey 👋";
+  // Phone/WhatsApp number not published in the API; using social media instead.
+  contactEl.innerHTML=`
+    <a class="cbtn ig" href="https://www.instagram.com/w10journey/" target="_blank" rel="noopener">
+      <span class="cb-ic">📸</span>
+      <span><span class="cb-name">إنستغرام</span><br><span class="cb-sub">@w10journey · تابعنا</span></span>
+    </a>
+    <a class="cbtn fb" href="https://www.facebook.com/w10journey" target="_blank" rel="noopener">
+      <span class="cb-ic">👍</span>
+      <span><span class="cb-name">فيسبوك</span><br><span class="cb-sub">w10journey · تواصل معنا</span></span>
+    </a>
+    <a class="cbtn tk" href="https://www.tiktok.com/@w10.journey" target="_blank" rel="noopener">
+      <span class="cb-ic">🎵</span>
+      <span><span class="cb-name">تيك توك</span><br><span class="cb-sub">@w10.journey</span></span>
+    </a>
+    <a class="cbtn loc2" href="https://maps.app.goo.gl/3cf4wCbRdCJqpQpw7" target="_blank" rel="noopener">
+      <span class="cb-ic">📍</span>
+      <span><span class="cb-name">الموقع</span><br><span class="cb-sub">الخروب، قسنطينة</span></span>
+    </a>
+  `;
+}
+
+/* ===== REVIEW ===== */
+const stars=$("#stars"),starsLabel=$("#starsLabel"),revText=$("#revText"),revName=$("#revName"),revSend=$("#revSend"),revResult=$("#revResult");
+let rating=0;
+if(stars){
+  const starSpans=stars.querySelectorAll("span");
+  starSpans.forEach(s=>{
+    s.onclick=()=>{
+      rating=+s.dataset.v;
+      starSpans.forEach(x=>x.classList.toggle("on",+x.dataset.v<=rating));
+      const labels=["ممتاز!","جيد جداً","جيد","متوسط","ضعيف"];
+      starsLabel.textContent=labels[5-rating]||"";
+    };
+  });
+  if(revSend)revSend.onclick=()=>{
+    const text=(revText.value||"").trim();
+    if(!rating){toast("اختر عدد النجوم أولاً ⭐");return}
+    const saved=JSON.parse(localStorage.getItem("w10_reviews")||"[]");
+    saved.push({rating,text,name:revName.value||"",date:new Date().toISOString()});
+    localStorage.setItem("w10_reviews",JSON.stringify(saved));
+    revResult.innerHTML=`<h3>شكراً لتقييمك! 🌟</h3><p>تقييمك (${"★".repeat(rating)}${"☆".repeat(5-rating)}) وصلنا بنجاح.</p>`;
+    revResult.classList.remove("hidden");
+    revSend.style.display="none";
+    revResult.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"});
+  };
+}
 
 /* ===== BOOKING ===== */
 const form=$("#form"),resultEl=$("#result"),toastEl=$("#toast");

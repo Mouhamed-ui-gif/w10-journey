@@ -39,7 +39,8 @@
     <a href="#" onclick="window._home();return false">الرئيسية</a>
     <a href="#sec-drinks">المشروبات</a>
     <a href="#sec-book">الحجز</a>
-    <a href="#sec-location">الموقع</a>
+    <a href="#sec-contact">التواصل</a>
+    <a href="javascript:void(0)" onclick="window._contact()">التقييم</a>
   </nav>
   <button id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
 </header>
@@ -52,6 +53,30 @@
     <p class="sub">اكتشف نكهات العالم في مكان واحد</p>
   </div>
   <div id="countries" class="countries"></div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="home-actions">
+    <div class="action" id="act-book" onclick="window._go('sec-book')">
+      <span class="act-ic">🪑</span>
+      <span class="act-name">احجز طاولة</span>
+      <span class="act-sub">احجز مقعدك بسهولة</span>
+    </div>
+    <div class="action" id="act-contact" onclick="window._go('sec-contact')">
+      <span class="act-ic">💬</span>
+      <span class="act-name">التواصل</span>
+      <span class="act-sub">كلم الطاقم عبر الواتساب</span>
+    </div>
+    <div class="action" id="act-review" onclick="window._go('sec-review')">
+      <span class="act-ic">⭐</span>
+      <span class="act-name">قيّمنا</span>
+      <span class="act-sub">شاركنا رأيك</span>
+    </div>
+    <div class="action" id="act-loc" onclick="window._go('sec-location')">
+      <span class="act-ic">📍</span>
+      <span class="act-name">الموقع</span>
+      <span class="act-sub">وجهنا إليك</span>
+    </div>
+  </div>
 </section>
 
 <!-- COUNTRY MENU -->
@@ -100,6 +125,37 @@
     <button type="submit" class="btn full">تأكيد الحجز</button>
   </form>
   <div id="result" class="result hidden"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="sec-contact" class="page">
+  <div class="section-top">
+    <h2>التواصل مع الطاقم</h2>
+    <p class="section-sub">نحن هنا لخدمتك</p>
+  </div>
+  <div id="contactBtns" class="contact-btns"></div>
+  <div class="contact-info">
+    <p class="ci"><span class="ci-ic">📍</span> الخروب، قسنطينة، الجزائر</p>
+    <p class="ci"><span class="ci-ic">🕒</span> يومياً 11:00 ← 23:00</p>
+  </div>
+</section>
+
+<!-- REVIEW -->
+<section id="sec-review" class="page">
+  <div class="section-top">
+    <h2>قيّم تجربتك</h2>
+    <p class="section-sub">رأيك يهمنا ويطورنا</p>
+  </div>
+  <div class="stars-wrap">
+    <div id="stars" class="stars">
+      <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+    </div>
+    <div id="starsLabel" class="stars-label">اختر عدد النجوم</div>
+  </div>
+  <textarea id="revText" class="search" placeholder="اكتب ملاحظاتك... (اختياري)" style="min-height:90px;resize:vertical"></textarea>
+  <input id="revName" class="search" placeholder="اسمك (اختياري)">
+  <button class="btn full" id="revSend">إرسال التقييم</button>
+  <div id="revResult" class="result hidden"></div>
 </section>
 
 <!-- LOCATION -->
