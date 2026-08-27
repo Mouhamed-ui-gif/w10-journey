@@ -50,9 +50,19 @@ window._home=()=>showPage("sec-home");
 const foodSections=D.sections.filter(s=>s.ar!=="المشروبات");
 const drinksSection=D.sections.find(s=>s.ar==="المشروبات");
 
+// Iconic images for each country (Unsplash, free to use)
+const countryImages={
+  "الهند":"https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80",
+  "إيطاليا":"https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=600&q=80",
+  "إسبانيا":"https://images.unsplash.com/photo-1543158266-0066955047b1?w=600&q=80",
+  "اليابان":"https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80",
+  "المكسيك":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80",
+  "أمريكا":"https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80"
+};
+
 const countryData=foodSections.map(s=>{
   let count=0;s.cats.forEach(c=>count+=c.items.length);
-  return{...s,flag:s.flag,name:s.ar,count,img:url(s.hero),color:"#f7906c"};
+  return{...s,flag:s.flag,name:s.ar,count,img:countryImages[s.ar]||url(s.hero),color:"#f7906c"};
 });
 
 /* ===== BUILD COUNTRIES GRID ===== */
@@ -70,6 +80,23 @@ countriesEl.innerHTML=countryData.map((c,i)=>`
 
 $$(".country").forEach(card=>{
   card.onclick=()=>openCountry(+card.dataset.idx);
+
+  // 3D tilt on touch/mouse
+  if(reduceMotion)return;
+  const onMove=(e)=>{
+    const rect=card.getBoundingClientRect();
+    const x=(e.clientX||e.touches?.[0]?.clientX||0)-rect.left;
+    const y=(e.clientY||e.touches?.[0]?.clientY||0)-rect.top;
+    const cx=rect.width/2,cy=rect.height/2;
+    const rx=((y-cy)/cy)*-8;
+    const ry=((x-cx)/cx)*8;
+    card.style.transform=`perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+  };
+  const onEnd=()=>{card.style.transform=""};
+  card.addEventListener("mousemove",onMove);
+  card.addEventListener("touchmove",onMove,{passive:true});
+  card.addEventListener("mouseleave",onEnd);
+  card.addEventListener("touchend",onEnd);
 });
 
 /* ===== OPEN COUNTRY MENU ===== */
