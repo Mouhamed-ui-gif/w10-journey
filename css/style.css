@@ -196,31 +196,72 @@ nav a:hover{background:var(--line)}
 }
 .back-btn:active{background:var(--card2)}
 
-/* ===== HOME QUICK ACTIONS ===== */
+/* ===== HOME QUICK ACTIONS (IMAGE TILES) ===== */
 .home-actions{
   display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;
   padding:1rem 0 2rem;
 }
 .action{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;gap:.2rem;
-  min-height:132px;border-radius:var(--r);
-  background:var(--card);border:1px solid var(--line);
-  cursor:pointer;padding:1rem .6rem;
-  transition:transform .2s,box-shadow .3s,border-color .25s;
-  overflow:hidden;position:relative;
+  position:relative;aspect-ratio:1/1.1;border-radius:var(--r);
+  overflow:hidden;cursor:pointer;
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  text-align:center;gap:.1rem;padding:1rem .7rem;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .25s;
+  transform-style:preserve-3d;will-change:transform;
 }
-.action:active{transform:scale(.96)}
-.action:hover{border-color:var(--acc);box-shadow:0 6px 24px rgba(247,144,108,.15)}
+.action:active{transform:scale(.95)}
+.action:hover{border-color:var(--acc);box-shadow:0 10px 30px rgba(247,144,108,.22)}
+
+/* Background image */
+.act-img{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform .5s ease;
+  z-index:0;
+}
+.action:hover .act-img,.action:active .act-img{transform:scale(1.12) translateY(-4px)}
+
+/* Shade for text readability */
+.act-shade{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(13,8,6,.95) 0%,rgba(13,8,6,.35) 50%,transparent 80%);
+  transition:opacity .3s;
+}
+
+/* Labels above image */
+.act-name{
+  position:relative;z-index:2;
+  font-weight:900;font-size:1.05rem;
+  text-shadow:0 2px 10px rgba(0,0,0,.7);
+  margin-top:auto;
+}
+.act-sub{
+  position:relative;z-index:2;
+  font-size:.74rem;color:var(--mut);font-weight:600;
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+}
+
+/* Animated icons floating over image */
+.act-emoji{
+  position:relative;z-index:2;
+  font-size:2.4rem;line-height:1;
+  text-shadow:0 4px 16px rgba(0,0,0,.6);
+  animation:floatY 2.6s ease-in-out infinite;
+  margin-bottom:.3rem;
+}
+@keyframes floatY{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+/* Shine sweep on hover */
 .action::after{
-  content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.1) 50%,transparent 60%);
-  pointer-events:none;transition:none;
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.16) 50%,transparent 60%);
+  z-index:4;pointer-events:none;transition:none;
 }
-.action:hover::after{animation:shine .5s ease forwards}
-.act-ic{font-size:2.2rem;margin-bottom:.2rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
-.act-name{font-weight:900;font-size:1rem}
-.act-sub{font-size:.72rem;color:var(--mut);font-weight:600}
+.action:hover::after{animation:shine .6s ease forwards}
 
 /* ===== CONTACT ===== */
 .contact-btns{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem}

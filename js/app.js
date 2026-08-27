@@ -101,6 +101,25 @@ $$(".country").forEach(card=>{
   card.addEventListener("touchend",onEnd);
 });
 
+/* ===== ACTION TILES 3D + ANIMATION ===== */
+$$(".action").forEach(tile=>{
+  tile.addEventListener("click",()=>{});
+  if(reduceMotion)return;
+  const onMove=(e)=>{
+    const rect=tile.getBoundingClientRect();
+    const x=(e.touches?.[0]?.clientX||e.clientX||rect.left)-rect.left;
+    const y=(e.touches?.[0]?.clientY||e.clientY||rect.top)-rect.top;
+    const rx=((y-rect.height/2)/rect.height)*10;
+    const ry=((x-rect.width/2)/rect.width)*10;
+    tile.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+  };
+  const onLeave=()=>{tile.style.transform=""};
+  tile.addEventListener("mousemove",onMove);
+  tile.addEventListener("touchmove",onMove,{passive:true});
+  tile.addEventListener("mouseleave",onLeave);
+  tile.addEventListener("touchend",onLeave);
+});
+
 /* ===== OPEN COUNTRY MENU ===== */
 const cName=$("#cName"),cFlag=$("#cFlag"),cCount=$("#cCount"),cHero=$("#cHero");
 const cCats=$("#cCats"),cSearch=$("#cSearch"),cItems=$("#cItems");
