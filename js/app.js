@@ -38,6 +38,7 @@ function showMain(){
   hdr&&hdr.classList.remove("hidden");
   main&&main.classList.remove("hidden");
   ft&&ft.classList.remove("hidden");
+  reveal();
 }
 const splashBtn=$("#splashBtn");
 if(splashBtn)splashBtn.onclick=enterSite;
@@ -49,23 +50,52 @@ if(splashBtn)splashBtn.onclick=enterSite;
   const p=vid.play();if(p&&p.catch)p.catch(()=>{});
 })();
 
-/* ===== MOBILE NAV ===== */
-const burger=$("#burger"),nav=$("#nav");
-if(burger&&nav){
-  burger.onclick=()=>{nav.classList.toggle("open");burger.classList.toggle("burger-open")};
-  $$("nav a").forEach(a=>a.onclick=()=>{nav.classList.remove("open");burger.classList.remove("burger-open")});
-}
-
 /* ===== PAGE NAVIGATION ===== */
 const pages=$$(".page");
 function showPage(id){
   pages.forEach(p=>p.classList.remove("active"));
   const el=$("#"+id);if(el)el.classList.add("active");
+  // mark active bottom-nav item
+  $$(".bnav-i").forEach(b=>b.classList.toggle("active",b.dataset.go===id));
   window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"});
+  reveal();
 }
 window._home=()=>showPage("sec-home");
 window._go=id=>showPage(id);
 window._contact=()=>showPage("sec-review");
+
+/* ===== MOBILE BOTTOM NAV ===== */
+const bnav=$("#bnav");
+if(bnav){
+  bnav.classList.remove("hidden");
+  $$(".bnav-i").forEach(b=>{
+    b.onclick=()=>showPage(b.dataset.go);
+  });
+  // default active on home
+  $$(".bnav-i")[0].classList.add("active");
+}
+
+/* ===== SCROLL REVEAL ===== */
+let revealTimer=null;
+function reveal(){
+  const els=$$(".reveal:not(.in)");
+  if(!els.length)return;
+  clearTimeout(revealTimer);
+  revealTimer=setTimeout(()=>{
+    els.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight*0.92&&r.bottom>0)el.classList.add("in");
+    });
+  },60);
+}
+function initReveal(){
+  if("IntersectionObserver"in window&&!reduceMotion){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.08});
+    $$(".reveal").forEach(el=>io.observe(el));
+  }else{
+    $$(".reveal").forEach(el=>el.classList.add("in"));
+  }
+}
 
 /* ===== DATA ===== */
 const foodSections=D.sections.filter(s=>s.ar!=="المشروبات");
@@ -89,7 +119,7 @@ const countryData=foodSections.map(s=>{
 /* ===== BUILD COUNTRIES GRID ===== */
 const countriesEl=$("#countries");
 countriesEl.innerHTML=countryData.map((c,i)=>`
-  <div class="country" data-idx="${i}">
+  <div class="country reveal" data-idx="${i}" style="transition-delay:${(i%3)*70}ms">
     <div class="c-bg" style="background-image:url('${c.img}')"></div>
     <div class="c-overlay">
       <span class="c-flag">${c.flag}</span>
@@ -175,10 +205,10 @@ function openCountry(idx){
 }
 
 /* ===== MENU CARD RENDERER (3D) ===== */
-function menuCard(it){
+function menuCard(it,idx){
   const img=it.img?`<div class="item-photo"><img src="${it.img}" alt="${it.n}" loading="lazy" decoding="async"></div>`:`<div class="item-photo no-photo"><div class="item-noimg">${it.n[0]}</div></div>`;
   return `
-  <div class="item" onclick="window._photo('${it.img||''}')">
+  <div class="item reveal" style="transition-delay:${(idx%6)*60}ms" onclick="window._photo('${it.img||''}')">
     ${img}
     <div class="item-info">
       <div class="item-name">${it.n}</div>
@@ -219,6 +249,7 @@ function renderCountryItems(sec,cat,query){
   if(query){const q=query.toLowerCase();items=items.filter(i=>i.n.toLowerCase().includes(q)||i.d?.toLowerCase().includes(q))}
   cItems.innerHTML=items.length?items.map(menuCard).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem;grid-column:1/-1">لا توجد نتائج</p>`;
   bindMenuCards(cItems);
+  reveal();
 }
 
 /* ===== DRINKS ===== */
@@ -240,6 +271,7 @@ if(drinksSection){
     if(query){const q=query.toLowerCase();items=items.filter(i=>i.n.toLowerCase().includes(q)||i.d?.toLowerCase().includes(q))}
     dItems.innerHTML=items.length?items.map(menuCard).join(""):`<p style="text-align:center;color:var(--mut);padding:2rem;grid-column:1/-1">لا توجد نتائج</p>`;
     bindMenuCards(dItems);
+    reveal();
   }
   renderDrinks("all","");
   $$("#dCats .cat").forEach(b=>{
@@ -330,5 +362,8 @@ form.onsubmit=e=>{
   resultEl.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"});
 };
 function toast(msg){toastEl.textContent=msg;toastEl.classList.remove("hidden");setTimeout(()=>toastEl.classList.add("hidden"),3000)}
+
+/* init reveal once everything rendered */
+initReveal();
 
 })();

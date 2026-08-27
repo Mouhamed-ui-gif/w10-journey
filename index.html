@@ -39,12 +39,11 @@
   <a class="logo" href="#" onclick="window._home();return false">W10<em>J</em></a>
   <nav id="nav">
     <a href="#" onclick="window._home();return false">الرئيسية</a>
-    <a href="#sec-drinks">المشروبات</a>
-    <a href="#sec-book">الحجز</a>
-    <a href="#sec-contact">التواصل</a>
-    <a href="javascript:void(0)" onclick="window._contact()">التقييم</a>
+    <a href="#" onclick="window._go('sec-drinks');return false">المشروبات</a>
+    <a href="#" onclick="window._go('sec-book');return false">الحجز</a>
+    <a href="#" onclick="window._go('sec-contact');return false">التواصل</a>
+    <a href="#" onclick="window._go('sec-review');return false">التقييم</a>
   </nav>
-  <button id="burger" aria-label="القائمة"><span></span><span></span><span></span></button>
 </header>
 
 <main id="main" class="hidden">
@@ -58,28 +57,28 @@
 
   <!-- QUICK ACTIONS -->
   <div class="home-actions">
-    <div class="action" id="act-book" onclick="window._go('sec-book')">
+    <div class="action reveal" id="act-book" style="transition-delay:0ms" onclick="window._go('sec-book')">
       <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">🪑</span>
       <span class="act-name">احجز طاولة</span>
       <span class="act-sub">احجز مقعدك بسهولة</span>
     </div>
-    <div class="action" id="act-contact" onclick="window._go('sec-contact')">
+    <div class="action reveal" id="act-contact" style="transition-delay:80ms" onclick="window._go('sec-contact')">
       <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">💬</span>
       <span class="act-name">التواصل</span>
       <span class="act-sub">تواصل مع الطاقم</span>
     </div>
-    <div class="action" id="act-review" onclick="window._go('sec-review')">
+    <div class="action reveal" id="act-review" style="transition-delay:160ms" onclick="window._go('sec-review')">
       <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1512909006721-3d6018887383?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">⭐</span>
       <span class="act-name">قيّمنا</span>
       <span class="act-sub">شاركنا رأيك</span>
     </div>
-    <div class="action" id="act-loc" onclick="window._go('sec-location')">
+    <div class="action reveal" id="act-loc" style="transition-delay:240ms" onclick="window._go('sec-location')">
       <div class="act-img" style="background-image:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=500&q=80')"></div>
       <div class="act-shade"></div>
       <span class="act-emoji">📍</span>
@@ -215,6 +214,15 @@
 </main>
 
 <footer id="ft" class="hidden"><p>W10 Journey · الخروب · قسنطينة</p></footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav id="bnav" class="bnav hidden" aria-label="التنقل السفلي">
+  <button class="bnav-i on" data-go="sec-home"><span class="bn-ic">🏠</span><span>الرئيسية</span></button>
+  <button class="bnav-i" data-go="sec-drinks"><span class="bn-ic">🥤</span><span>مشروبات</span></button>
+  <button class="bnav-i" data-go="sec-book"><span class="bn-ic">🪑</span><span>حجز</span></button>
+  <button class="bnav-i" data-go="sec-contact"><span class="bn-ic">💬</span><span>تواصل</span></button>
+  <button class="bnav-i" data-go="sec-review"><span class="bn-ic">⭐</span><span>تقييم</span></button>
+</nav>
 
 <div id="toast" class="toast hidden"></div>
 <div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">&times;</button><img id="lbImg" alt=""></div>
