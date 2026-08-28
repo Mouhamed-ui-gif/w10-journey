@@ -115,20 +115,19 @@ if(countriesEl){
       </div>
     </div>
   `).join("");
+  const isHover=window.matchMedia("(hover:hover)").matches;
   $$(".cuisine").forEach(card=>{
     card.onclick=()=>openCountry(+card.dataset.idx);
-    if(reduceMotion)return;
+    if(reduceMotion||!isHover)return;
     const onMove=e=>{
       const r=card.getBoundingClientRect();
-      const x=(e.touches?.[0]?.clientX||e.clientX||0)-r.left;
-      const y=(e.touches?.[0]?.clientY||e.clientY||0)-r.top;
-      card.style.transform=`perspective(900px) rotateX(${((y-r.height/2)/r.height)*-7}deg) rotateY(${((x-r.width/2)/r.width)*7}deg) translateY(-4px)`;
+      const x=(e.clientX||0)-r.left;
+      const y=(e.clientY||0)-r.top;
+      card.style.transform=`perspective(900px) rotateX(${((y-r.height/2)/r.height)*-8}deg) rotateY(${((x-r.width/2)/r.width)*8}deg) translateY(-6px)`;
     };
     const onEnd=()=>{card.style.transform=""};
     card.addEventListener("mousemove",onMove);
-    card.addEventListener("touchmove",onMove,{passive:true});
     card.addEventListener("mouseleave",onEnd);
-    card.addEventListener("touchend",onEnd);
   });
 }
 
@@ -246,19 +245,17 @@ function renderItems(sec,cat,query,host){
   initReveal(host);
 }
 function bindMenuCards(host){
-  if(reduceMotion)return;
+  if(reduceMotion||!window.matchMedia("(hover:hover)").matches)return;
   $$(".item",host).forEach(card=>{
     const onMove=e=>{
       const r=card.getBoundingClientRect();
-      const x=(e.touches?.[0]?.clientX||e.clientX||0)-r.left;
-      const y=(e.touches?.[0]?.clientY||e.clientY||0)-r.top;
-      card.style.transform=`perspective(800px) rotateX(${((y-r.height/2)/r.height)*-8}deg) rotateY(${((x-r.width/2)/r.width)*8}deg)`;
+      const x=(e.clientX||0)-r.left;
+      const y=(e.clientY||0)-r.top;
+      card.style.transform=`perspective(800px) rotateX(${((y-r.height/2)/r.height)*-9}deg) rotateY(${((x-r.width/2)/r.width)*9}deg)`;
     };
     const onEnd=()=>{card.style.transform=""};
     card.addEventListener("mousemove",onMove);
-    card.addEventListener("touchmove",onMove,{passive:true});
     card.addEventListener("mouseleave",onEnd);
-    card.addEventListener("touchend",onEnd);
   });
 }
 
