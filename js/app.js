@@ -23,15 +23,18 @@ if(splashBg){
   }
 }
 function enterSite(){
-  if(!splash)return showMain();
+  if(!splash){return showMain()}
   splash.classList.add("go");
   setTimeout(()=>{splash.classList.add("gone");showMain()},500);
   window.scrollTo(0,0);
-  splashBtn&&(splashBtn.onclick=null);
-  setTimeout(()=>{if(splashBtn)splashBtn.onclick=enterSite},600);
+  try{splashBtn.onclick=null}catch(e){}
+  setTimeout(()=>{try{if(splashBtn)splashBtn.onclick=enterSite}catch(e){}},600);
 }
 const splashBtn=$("#splashBtn");
 if(splashBtn)splashBtn.onclick=enterSite;
+
+/* FALLBACK: always reveal the site even if the splash button/JS hiccups */
+window.addEventListener("load",()=>{setTimeout(enterSite,3500)});
 
 function showMain(){
   hdr&&hdr.classList.remove("hidden");
