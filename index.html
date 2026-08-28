@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=10">
+<link rel="stylesheet" href="css/style.css?v=11">
 </head>
 <body>
 
@@ -30,6 +30,24 @@
       <span class="sbtn-dot"></span>
     </button>
   </div>
+</div>
+
+<!-- READING PROGRESS -->
+<div class="progressbar" id="progbar"><span></span></div>
+
+<!-- SPARKLES -->
+<div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+<!-- FLOATING CONTROLS -->
+<div class="fcontrols" id="fcontrols">
+  <button class="fc-btn" id="fcBack" title="رجوع"><span class="fc-ic">⟵</span></button>
+  <div class="fc-zoom">
+    <button class="fc-btn" id="fcMinus" title="تصغير"><span class="fc-ic">−</span></button>
+    <span class="fc-val" id="fcVal">100%</span>
+    <button class="fc-btn" id="fcPlus" title="تكبير"><span class="fc-ic">+</span></button>
+  </div>
+  <button class="fc-btn" id="fcReset" title="إعادة الضبط"><span class="fc-ic">⟳</span></button>
+  <button class="fc-btn" id="fcTop" title="للأعلى"><span class="fc-ic">↑</span></button>
 </div>
 
 <!-- CURSOR GLOW -->
@@ -108,8 +126,8 @@
       <h2>مطبخٌ واحد.. <span class="gold">نكهات العالم كلّه</span></h2>
     </div>
     <div class="about-grid">
-      <div class="about-photo reveal">
-        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80" alt="داخل المطعم" loading="lazy">
+      <div class="about-photo reveal floaty glowp">
+        <div class="shine"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80" alt="داخل المطعم" loading="lazy"></div>
         <div class="about-badge"><b>6</b><span>مطابخ عالمية</span></div>
       </div>
       <div class="about-text reveal">
@@ -305,7 +323,7 @@
 <div id="toast" class="toast hidden"></div>
 <div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">×</button><img id="lbImg" alt=""></div>
 
-<script src="js/data.js?v=10"></script>
-<script src="js/app.js?v=10"></script>
+<script src="js/data.js?v=11"></script>
+<script src="js/app.js?v=11"></script>
 </body>
 </html>

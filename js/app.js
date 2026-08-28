@@ -386,6 +386,73 @@ function initReveal(scope){
   }
 }
 
+/* ================= READING PROGRESS ================= */
+const progSpan=$("#progbar span");
+function updateProgress(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  const p=max>0?(h.scrollTop||document.body.scrollTop)/max:0;
+  if(progSpan)progSpan.style.width=(p*100).toFixed(2)+"%";
+}
+window.addEventListener("scroll",updateProgress,{passive:true});
+updateProgress();
+
+/* ================= SPARKLES ================= */
+(function sparkle(){
+  const box=$("#sparkles");
+  if(!box||reduceMotion||matchMedia("(hover:none)").matches)return;
+  const N=26;
+  for(let i=0;i<N;i++){
+    const s=document.createElement("i");
+    s.className="sparkle";
+    const size=2+Math.random()*4;
+    s.style.width=s.style.height=size+"px";
+    s.style.left=(Math.random()*100)+"%";
+    s.style.top=(10+Math.random()*80)+"%";
+    s.style.setProperty("--dx",(Math.random()*60-30)+"px");
+    s.style.setProperty("--dy",-(40+Math.random()*120)+"px");
+    s.style.animationDuration=(6+Math.random()*8)+"s";
+    s.style.animationDelay=(Math.random()*8)+"s";
+    box.appendChild(s);
+  }
+})();
+
+/* ================= SITE ZOOM ================= */
+const mainHost=$("#main");
+const fcPlus=$("#fcPlus"),fcMinus=$("#fcMinus"),fcVal=$("#fcVal"),fcReset=$("#fcReset");
+const ZKEY="w10_zoom";
+let zoom=parseFloat(localStorage.getItem(ZKEY))||1;
+function applyZoom(){if(mainHost)mainHost.style.setProperty("--zoom",zoom);if(fcVal)fcVal.textContent=Math.round(zoom*100)+"%";localStorage.setItem(ZKEY,zoom)}
+applyZoom();
+if(fcPlus)fcPlus.onclick=()=>{zoom=Math.min(zoom+0.1,1.6);applyZoom()};
+if(fcMinus)fcMinus.onclick=()=>{zoom=Math.max(zoom-0.1,0.8);applyZoom()};
+if(fcReset)fcReset.onclick=()=>{zoom=1;applyZoom()};
+
+/* ================= BACK / TOP CONTROLS ================= */
+const fcBack=$("#fcBack"),fcTop=$("#fcTop");
+const navStack=[];
+showPage=(function(orig){return function(id){const prev=navStack[navStack.length-1];if(prev!==id)navStack.push(id);if(navStack.length>40)navStack.shift();orig(id)}})(showPage);
+function goBack(){
+  if(navStack.length>1){navStack.pop();showPage(navStack.pop()||"sec-home")}
+  else window.history.length>1?history.back():showPage("sec-home");
+}
+if(fcBack)fcBack.onclick=goBack;
+if(fcTop)fcTop.onclick=()=>window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"});
+
+/* ================= SHIMMER FLASH ================= */
+function flashShine(el){if(!el||reduceMotion)return;if(!el.classList.contains("shine"))el.classList.add("shine");el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}
+document.addEventListener("click",e=>{
+  const t=e.target.closest(".cuisine,.item,.gal-item,.sig-row,:is(img)");
+  if(t)flashShine(t);
+});
+
+/* auto-shine signature image for sparkle */
+const sigWrap=$("#sigImg");
+if(sigWrap&&!reduceMotion){setInterval(()=>flashShine(sigWrap),4200)}
+
+/* ================= BACK BUTTON BAKE INTO PAGES ================= */
+window._back=goBack;
+
 /* initial */
 showMain();
 })();

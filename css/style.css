@@ -337,6 +337,46 @@ h1,h2,h3{font-family:var(--serif)}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
+/* ============ READING PROGRESS ============ */
+.progressbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:400;pointer-events:none}
+.progressbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l));box-shadow:0 0 12px rgba(212,175,55,.8)}
+
+/* ============ SPARKLES ============ */
+.sparkles{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.sparkle{position:absolute;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle,#fff,var(--gold-l) 50%,transparent);box-shadow:0 0 8px 2px rgba(212,175,55,.55);animation:sparkFloat linear infinite;opacity:0}
+@keyframes sparkFloat{0%{opacity:0;transform:translate(0,0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx,20px),var(--dy,-120px)) scale(1.1)}}
+@media(hover:none){.sparkles{display:none}}
+
+/* ============ FLOATING CONTROLS ============ */
+.fcontrols{position:fixed;inset-inline-end:clamp(.8rem,3vw,1.4rem);bottom:calc(clamp(.8rem,3vw,1.4rem) + env(safe-area-inset-bottom,0px));z-index:200;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.fc-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--gold-l);background:rgba(12,10,7,.72);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .4s;font-size:1.1rem}
+.fc-btn:hover{transform:translateY(-3px) scale(1.08);border-color:var(--gold);box-shadow:0 10px 26px -8px rgba(212,175,55,.55)}
+.fc-btn:active{transform:scale(.92)}
+.fc-btn[disabled]{opacity:.35;pointer-events:none}
+.fc-zoom{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:.5rem;border-radius:30px;background:rgba(12,10,7,.72);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:var(--sh)}
+.fc-zoom .fc-btn{width:38px;height:38px;background:transparent;border:none;font-size:1.3rem}
+.fc-val{font-size:.6rem;color:var(--mut);letter-spacing:.05em;font-weight:700}
+.fc-back,#fcBack.on{color:var(--gold-l);border-color:var(--gold)}
+@media(max-width:720px){.fcontrols{bottom:calc(74px + env(safe-area-inset-bottom,0px))}}
+
+/* ============ SHIMMER / 3D UPGRADE ============ */
+@keyframes glossSweep{0%{transform:translateX(-150%) skewX(-20deg)}100%{transform:translateX(250%) skewX(-20deg)}}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:'';position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-150%) skewX(-20deg);z-index:3;pointer-events:none}
+.shine.flash::after{animation:glossSweep 1.4s cubic-bezier(.2,.7,.2,1)}
+.c-bg,.item-photo,.gal-item img,.cb-img,.about-photo img,.sig-img img{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .6s,box-shadow .6s}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.floaty{animation:floatY 5s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{box-shadow:0 10px 30px -10px rgba(212,175,55,.35)}50%{box-shadow:0 14px 44px -8px rgba(212,175,55,.75)}}
+.glowp{animation:glowPulse 3.2s ease-in-out infinite;border-color:var(--gold)!important}
+/* 3D strong tilt stored on element; enhance on hover */
+.cuisine:hover,.item:hover,.sig-row:hover{filter:brightness(1.06)}
+
+/* ============ SITE ZOOM ============ */
+#main{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.zoomed{transform:scale(var(--zoom,1));transform-origin:top center}
+
+/* ============ FLOAT LOGO BADGE ============ */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   html{scroll-behavior:auto}
