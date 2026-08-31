@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 <body>
 
@@ -40,14 +40,17 @@
 
 <!-- FLOATING CONTROLS -->
 <div class="fcontrols" id="fcontrols">
-  <button class="fc-btn" id="fcBack" title="رجوع"><span class="fc-ic">⟵</span></button>
-  <div class="fc-zoom">
-    <button class="fc-btn" id="fcMinus" title="تصغير"><span class="fc-ic">−</span></button>
+  <div class="fc-main">
+    <button class="fc-btn" id="fcMinus" title="تصغير الموقع"><span class="fc-ic">−</span><span class="fc-lbl">تصغير</span></button>
     <span class="fc-val" id="fcVal">100%</span>
-    <button class="fc-btn" id="fcPlus" title="تكبير"><span class="fc-ic">+</span></button>
+    <button class="fc-btn" id="fcPlus" title="تكبير الموقع"><span class="fc-ic">+</span><span class="fc-lbl">تكبير</span></button>
   </div>
-  <button class="fc-btn" id="fcReset" title="إعادة الضبط"><span class="fc-ic">⟳</span></button>
-  <button class="fc-btn" id="fcTop" title="للأعلى"><span class="fc-ic">↑</span></button>
+  <div class="fc-row">
+    <button class="fc-btn" id="fcReset" title="إعادة الضبط"><span class="fc-ic">⟳</span></button>
+    <button class="fc-btn" id="fcBack" title="الصفحة السابقة"><span class="fc-ic">⟵</span></button>
+    <button class="fc-btn fc-loc" id="fcLoc" title="موقع المطعم"><span class="fc-ic">📍</span></button>
+    <button class="fc-btn" id="fcTop" title="للأعلى"><span class="fc-ic">↑</span></button>
+  </div>
 </div>
 
 <!-- CURSOR GLOW -->
@@ -199,6 +202,44 @@
     </div>
   </div>
 
+  <!-- ====== RESTAURANT & SOCIALS ====== -->
+  <div class="section spot-section">
+    <div class="sec-head">
+      <p class="kicker">المطعم والتواصل</p>
+      <h2>جِدنا وتواصل <span class="gold">معنا</span></h2>
+    </div>
+
+    <div class="spot-card panel reveal">
+      <div class="spot-map">
+        <button class="spot-map-link btn btn-gold" onclick="window._openLoc()">
+          <span class="fc-ic">📍</span> افتح الخريطة
+        </button>
+      </div>
+      <div class="spot-info">
+        <div class="spot-title">W10 <span class="gold">Journey</span></div>
+        <div class="spot-addr"><span class="fc-ic">📍</span> الخروب، قسنطينة، الجزائر</div>
+        <div class="spot-time"><span class="fc-ic">🕒</span> يومياً 11:00 ← 23:00</div>
+        <div class="spot-cur"><span class="fc-ic">₫</span> العملة: دينار جزائري (DZD)</div>
+        <button class="btn btn-gold full sm" onclick="window._openLoc()">توجّه إلينا على الخريطة →</button>
+      </div>
+    </div>
+
+    <div class="socials reveal">
+      <a class="soc" href="https://www.instagram.com/w10journey/" target="_blank" rel="noopener">
+        <span class="soc-ic">📸</span><span class="soc-name">إنستغرام</span><span class="soc-handle">@w10journey</span>
+      </a>
+      <a class="soc" href="https://www.facebook.com/w10journey" target="_blank" rel="noopener">
+        <span class="soc-ic">👍</span><span class="soc-name">فيسبوك</span><span class="soc-handle">w10journey</span>
+      </a>
+      <a class="soc" href="https://www.tiktok.com/@w10.journey" target="_blank" rel="noopener">
+        <span class="soc-ic">🎵</span><span class="soc-name">تيك توك</span><span class="soc-handle">@w10.journey</span>
+      </a>
+      <a class="soc" href="https://www.instagram.com/w10journey/" target="_blank" rel="noopener">
+        <span class="soc-ic">✦</span><span class="soc-name">تابعنا</span><span class="soc-handle">w10. journey</span>
+      </a>
+    </div>
+  </div>
+
 </section>
 
 <!-- ============ COUNTRY MENU ============ -->
@@ -323,7 +364,7 @@
 <div id="toast" class="toast hidden"></div>
 <div id="lightbox" class="lb hidden"><button class="lb-x" aria-label="إغلاق">×</button><img id="lbImg" alt=""></div>
 
-<script src="js/data.js?v=12"></script>
-<script src="js/app.js?v=12"></script>
+<script src="js/data.js?v=13"></script>
+<script src="js/app.js?v=13"></script>
 </body>
 </html>

@@ -435,6 +435,8 @@ function goBack(){
 }
 if(fcBack)fcBack.onclick=goBack;
 if(fcTop)fcTop.onclick=()=>window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"});
+const fcLoc=$("#fcLoc");
+if(fcLoc)fcLoc.onclick=()=>window._openLoc();
 
 /* ================= SHIMMER FLASH ================= */
 function flashShine(el){if(!el||reduceMotion)return;if(!el.classList.contains("shine"))el.classList.add("shine");el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}
